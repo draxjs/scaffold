@@ -1,0 +1,23 @@
+{
+  "name": "drax-scaffold",
+  "version": "1.0.0",
+  "description": "Scaffold of Drax Modules Framework",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/draxjs/scaffold.git"
+  },
+  "keywords": [
+    "drax",
+    "scaffold"
+  ],
+  "author": "Cristian Incarnato",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/draxjs/scaffold/issues"
+  },
+  "homepage": "https://github.com/draxjs/scaffold#readme"
+}
