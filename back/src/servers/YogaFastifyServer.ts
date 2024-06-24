@@ -1,6 +1,10 @@
 import Fastify, {FastifyInstance, FastifyRequest, FastifyReply} from "fastify";
 import {createSchema, createYoga} from 'graphql-yoga'
 import {IJwtUser, Rbac} from "@drax/identity-back";
+import fastifyStatic from '@fastify/static';
+import path from 'path';
+import { fileURLToPath } from 'url';
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 
 declare module 'fastify' {
@@ -30,6 +34,7 @@ class YogaFastifyServer {
         this.setupStatusRoute()
         this.setupYogaServer()
         this.linkFastifyYoga()
+        this.setupPublicFiles()
     }
 
     setupFastifyServer(): void {
@@ -97,6 +102,17 @@ class YogaFastifyServer {
         this.fastifyServer.get('/status', async (request, reply) => {
             return 'Running'
         })
+    }
+
+    setupPublicFiles() {
+        this.fastifyServer.register(fastifyStatic, {
+            root: path.join(__dirname, '..','public'), // Asegúrate de que esta ruta sea correcta
+            prefix: '/',
+            index: 'index.html'
+        });
+        this.fastifyServer.setNotFoundHandler(function (request, reply) {
+            reply.sendFile("index.html");
+        });
     }
 
     async start(port: number, baseUrl: string = 'http://localhost') {

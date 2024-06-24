@@ -1,18 +1,16 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
-    "composite": true,
-    "declaration": true,
-    "declarationMap": true,
+    "composite": false,
+    "declaration": false,
+    "declarationMap": false,
     "module": "ESNext",
     "target": "es2020",
-    "outDir": "dist",
+    "rootDir": "./src",
+    "outDir": "../out",
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "rootDir": "src",
-    "outDir": "dist",
-    "declarationDir": "./types"
+    "esModuleInterop": true
   },
   "exclude": ["test", "types","dist"],
   "ts-node": {

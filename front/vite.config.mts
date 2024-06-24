@@ -19,11 +19,9 @@ export default defineConfig({
       '/api': 'http://localhost:8085',
       '/graphql': 'http://localhost:8085',
     },
-    /*
-    headers: {
-      'Content-Security-Policy': "script-src 'self' 'unsafe-eval' 'unsafe-inline';"
-    }
-    */
+  },
+  build: {
+    outDir: '../out/public',
   },
   plugins: [
     VueRouter({
