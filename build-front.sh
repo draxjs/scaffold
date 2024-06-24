@@ -1,7 +1,7 @@
 #!/bin/sh
 echo "BUILD: FRONT START"
 
-cd ../front
+cd front
 npm install
 npm run build
 
