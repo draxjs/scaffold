@@ -3,8 +3,10 @@ import Fastify, {FastifyInstance, FastifyRequest} from "fastify";
 import fastifyApollo, {fastifyApolloDrainPlugin, fastifyApolloHandler} from "@as-integrations/fastify";
 import type {ApolloFastifyContextFunction} from "@as-integrations/fastify";
 import ApolloErrorPlugin from "./ApolloPlugins/ApolloErrorPlugin.js";
-import {IJwtUser} from "@drax/identity-back";
-
+import {IJwtUser} from "@drax/identity-share";
+import path from "path";
+import {fileURLToPath} from "url";
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 declare module 'fastify' {
     interface FastifyRequest {
@@ -22,10 +24,12 @@ class ApolloFastifyServer {
     apolloServer: any
     typeDefs: any
     resolvers: any
+    rootDir: string;
 
-    constructor(typeDefs: any, resolvers: any) {
+    constructor(typeDefs: any, resolvers: any, rootDir: string) {
         this.typeDefs = typeDefs
         this.resolvers = resolvers
+        this.rootDir = rootDir ? rootDir : path.join(__dirname, '..');
         this.setup()
 
     }

@@ -1,7 +1,9 @@
 import Fastify, {FastifyInstance, FastifyRequest, FastifyReply} from "fastify";
 import {createSchema, createYoga} from 'graphql-yoga'
-import {IJwtUser, Rbac} from "@drax/identity-back";
+import {Rbac} from "@drax/identity-back";
+import {IJwtUser} from "@drax/identity-share";
 import fastifyStatic from '@fastify/static';
+import fastifyMultipart from '@fastify/multipart';
 import path from 'path';
 import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -21,10 +23,12 @@ class YogaFastifyServer {
     yoga: any
     typeDefs: any
     resolvers: any
+    rootDir: string;
 
-    constructor(typeDefs: any, resolvers: any, middlewares: any[]) {
+    constructor(typeDefs: any, resolvers: any, rootDir: string) {
         this.typeDefs = typeDefs
         this.resolvers = resolvers
+        this.rootDir = rootDir ? rootDir : path.join(__dirname, '..');
         this.setup()
     }
 
@@ -35,6 +39,18 @@ class YogaFastifyServer {
         this.setupYogaServer()
         this.linkFastifyYoga()
         this.setupPublicFiles()
+    }
+
+    setupPublicFiles() {
+        this.fastifyServer.register(fastifyStatic, {
+            root: path.join(this.rootDir, 'public'),
+            prefix: '/',
+            index: 'index.html'
+        });
+
+        this.fastifyServer.setNotFoundHandler(function (request, reply) {
+            reply.sendFile("index.html");
+        });
     }
 
     setupFastifyServer(): void {
@@ -83,7 +99,8 @@ class YogaFastifyServer {
     }
 
     setupMultipart() {
-        this.fastifyServer.addContentTypeParser('multipart/form-data', {}, (req, payload, done) => done(null))
+        this.fastifyServer.register(fastifyMultipart)
+        //this.fastifyServer.addContentTypeParser('multipart/form-data', {}, (req, payload, done) => done(null))
     }
 
     fastifyDecorateRequest(prop: string, defaultValue: any) {
@@ -102,17 +119,6 @@ class YogaFastifyServer {
         this.fastifyServer.get('/status', async (request, reply) => {
             return 'Running'
         })
-    }
-
-    setupPublicFiles() {
-        this.fastifyServer.register(fastifyStatic, {
-            root: path.join(__dirname, '..','public'), // Asegúrate de que esta ruta sea correcta
-            prefix: '/',
-            index: 'index.html'
-        });
-        this.fastifyServer.setNotFoundHandler(function (request, reply) {
-            reply.sendFile("index.html");
-        });
     }
 
     async start(port: number, baseUrl: string = 'http://localhost') {
