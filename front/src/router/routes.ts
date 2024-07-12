@@ -1,4 +1,5 @@
 import HomePage from '../pages/home/index.vue'
+import LoginPage from "../pages/user/LoginPage.vue";
 
 const routes = [
   {
@@ -15,6 +16,14 @@ const routes = [
     component: HomePage,
     meta: {
       auth: true,
+    }
+  },
+  {
+    name: 'Login',
+    path: '/login',
+    component: LoginPage,
+    meta: {
+      auth: false,
     }
   },
   {
