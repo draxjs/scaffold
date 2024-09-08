@@ -1,5 +1,5 @@
-import {DraxConfig, MongooseConector, LoadCommonConfigFromEnv} from "@drax/common-back";
-import {IdentityConfig, LoadIdentityConfigFromEnv} from "@drax/identity-back";
+import {DraxConfig, CommonConfig, MongooseConector, LoadCommonConfigFromEnv} from "@drax/common-back";
+import { LoadIdentityConfigFromEnv} from "@drax/identity-back";
 import InitializePermissions from "./InitializePermissions.js";
 import CreateRootUserAndAdminRole from "./CreateRootUserAndAdminRole.js";
 import CreateSystemRoles from "./CreateSystemRoles.js";
@@ -12,8 +12,8 @@ async function SetupDrax(){
     LoadIdentityConfigFromEnv()
 
     //Setup MongoDB connection if needed
-    if(DraxConfig.get(IdentityConfig.DbEngine) === 'mongo'){
-        const mongooseUri = DraxConfig.get(IdentityConfig.MongoDbUri)
+    if(DraxConfig.getOrLoad(CommonConfig.DbEngine) === 'mongo'){
+        const mongooseUri = DraxConfig.getOrLoad(CommonConfig.MongoDbUri)
         const mongooseConector = new MongooseConector(mongooseUri)
         mongooseConector.connect()
     }

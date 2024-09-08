@@ -14,7 +14,7 @@ const primaryColorText = computed(() => theme.current.value.colors.background)
 
 
 const TITLE_MAIN = import.meta.env.VITE_TITLE_MAIN || 'DRAX';
-const TITLE_SEC = import.meta.env.VITE_TITLE_SEC || 'SUITE';
+const TITLE_SEC = import.meta.env.VITE_TITLE_SEC || 'SCAFFOLD';
 
 function onLoginSuccess() {
   router.push('/')

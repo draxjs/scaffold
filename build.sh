@@ -1,6 +1,8 @@
 #!/bin/sh
 echo "BUILD: START"
 
+node -v
+
 echo "BUILD: Backend Start"
 cd back
 npm install

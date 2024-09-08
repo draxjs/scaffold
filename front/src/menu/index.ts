@@ -36,7 +36,13 @@ const menu: MenuItem[] = [
         gallery: true,
         permission: 'user:manage'
       },
-
+      {
+        icon: 'mdi mdi-table-key',
+        text:'Api Keys',
+        link: { name: "CrudUserApiKey" },
+        gallery: true,
+        permission: 'userApiKey:manage'
+      },
     ]
   },
   {

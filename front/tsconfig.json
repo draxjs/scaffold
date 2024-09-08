@@ -33,6 +33,11 @@
     "./src/typed-router.d.ts",
     "src/types/**/*.ts"
   ],
-  "exclude": ["dist", "node_modules", "cypress"],
+  "exclude": [
+    "dist",
+    "node_modules",
+    "cypress",
+    "node_modules/@drax/identity-vue/src/pages/ProfilePage.vue"
+  ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
