@@ -1,18 +1,13 @@
 import {
   UserGqlProvider, UserRestProvider, UserSystem,
-
   TenantGqlProvider, TenantRestProvider, TenantSystem,
-
   AuthGqlProvider, AuthRestProvider, AuthSystem,
-
   RoleGqlProvider, RoleRestProvider, RoleSystem,
-
   UserApiKeyGqlProvider, UserApiKeyRestProvider, UserApiKeySystem
-
 } from "@drax/identity-front";
 
 import type { IRoleProvider, IUserProvider, ITenantProvider, IAuthProvider, IUserApiKeyProvider} from "@drax/identity-front";
-import {HttpGqlClient, HttpRestClient} from "@drax/common-front";
+import {HttpGqlClientFactory, HttpRestClientFactory} from "@drax/common-front";
 
 
 const REST = 'REST'
@@ -25,6 +20,7 @@ export function SystemFactory(HttpClientType: string = REST) {
     throw new Error(`HttpClient must be one of ${CLIENTS}`)
   }
 
+  const graphqlUrl: string = '/graphql'
   const baseUrl: string = ''
   let userProvider: IUserProvider
   let roleProvider: IRoleProvider
@@ -36,14 +32,14 @@ export function SystemFactory(HttpClientType: string = REST) {
 
 
   if (HttpClientType === GRAPHQL) {
-    HttpClient = new HttpGqlClient('/graphql')
+    HttpClient = HttpGqlClientFactory.getInstance(graphqlUrl)
     userProvider = new UserGqlProvider(HttpClient)
     roleProvider = new RoleGqlProvider(HttpClient)
     authProvider = new AuthGqlProvider(HttpClient)
     tenantProvider = new TenantGqlProvider(HttpClient)
     userApiKeyProvider = new UserApiKeyGqlProvider(HttpClient)
   } else {
-    HttpClient = new HttpRestClient(baseUrl)
+    HttpClient = HttpRestClientFactory.getInstance(baseUrl)
     userProvider = new UserRestProvider(HttpClient)
     roleProvider = new RoleRestProvider(HttpClient)
     authProvider = new AuthRestProvider(HttpClient)
