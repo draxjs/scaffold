@@ -6,7 +6,6 @@
   "private": true,
   "scripts": {
     "back": "nodemon --exec node --env-file .env --loader ts-node/esm src/index.ts",
-    "dev": "nodemon --exec node --env-file .env dist/index.js",
     "build": "rm -rf ../dist && tsc -p tsconfig.json && copyfiles -u 1 ./**/*.graphql ../out/ && copyfiles package.json ../out && copyfiles .env.example ../out",
     "copygql": "copyfiles -u 1 ./**/*.graphql dist/",
     "copyPackageDist": "copyfiles package.json ../dist",
@@ -18,9 +17,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@drax/common-back": "^0.3.1",
-    "@drax/identity-back": "^0.3.1",
-    "@drax/media-back": "^0.3.1",
+    "@drax/common-back": "^0.5.3",
+    "@drax/crud-back": "^0.5.3",
+    "@drax/identity-back": "^0.5.3",
+    "@drax/media-back": "^0.5.3",
     "@apollo/server": "^4.10.4",
     "@as-integrations/fastify": "^2.0.0",
     "@graphql-tools/load-files": "^7.0.0",

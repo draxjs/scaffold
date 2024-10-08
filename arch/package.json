@@ -1,0 +1,22 @@
+{
+  "name": "@drax/zuite-arch",
+  "version": "0.5.3",
+  "description": "",
+  "type": "module",
+  "main": "dist/index.js",
+  "private": true,
+  "scripts": {
+    "build": "tsx src/index.ts",
+    "buildExample": "tsx src/examples/index-example.ts"
+  },
+  "author": "Cristian Incarnato",
+  "license": "ISC",
+  "devDependencies": {
+    "@drax/arch": "^0.5.2",
+    "@tsconfig/recommended": "^1.0.2",
+    "@types/node": "^20.2.1",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.19.1",
+    "typescript": "^5.6.2"
+  }
+}
