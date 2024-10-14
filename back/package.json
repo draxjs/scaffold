@@ -10,7 +10,7 @@
     "copygql": "copyfiles -u 1 ./**/*.graphql dist/",
     "copyPackageDist": "copyfiles package.json ../dist",
     "tsc": "tsc -p tsconfig.json",
-    "test": "test",
+    "test": "node --import tsx --test test/**/*.test* ",
     "recoveryAdmin": " node --env-file .env --loader ts-node/esm src/setup/scripts/RecoverAdminPassword.ts",
     "initRootUserAndAdminRole": " node --env-file .env --loader ts-node/esm src/setup/scripts/CreateRootUserAndAdminRole.ts"
   },
@@ -43,6 +43,7 @@
     "nodemon": "^3.1.4",
     "ts-node": "^10.9.1",
     "ts-node-dev": "^2.0.0",
-    "typescript": "^5.0.4"
+    "typescript": "^5.0.4",
+    "tsx": "^3.14.0"
   }
 }
