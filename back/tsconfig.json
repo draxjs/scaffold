@@ -12,7 +12,7 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true
   },
-  "exclude": ["test", "types","dist"],
+  "exclude": ["test", "types","dist","node_modules"],
   "ts-node": {
     "esm": true
   }

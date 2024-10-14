@@ -12,7 +12,7 @@
   "author": "Cristian Incarnato",
   "license": "ISC",
   "devDependencies": {
-    "@drax/arch": "^0.5.2",
+    "@drax/arch": "^0.5.7",
     "@tsconfig/recommended": "^1.0.2",
     "@types/node": "^20.2.1",
     "ts-node": "^10.9.2",
