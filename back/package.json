@@ -6,6 +6,7 @@
   "private": true,
   "scripts": {
     "back": "nodemon --exec node --env-file .env --loader ts-node/esm src/index.ts",
+    "prod": "node --env-file .env  index.js",
     "build": "rm -rf ../dist && tsc -p tsconfig.json && copyfiles -u 1 ./**/*.graphql ../out/ && copyfiles package.json ../out && copyfiles .env.example ../out",
     "copygql": "copyfiles -u 1 ./**/*.graphql dist/",
     "copyPackageDist": "copyfiles package.json ../dist",
