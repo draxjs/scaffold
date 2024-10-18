@@ -1,0 +1,21 @@
+version: "3.5"
+
+services:
+  edni:
+    image: dnie
+    ports:
+      - "8888:5000"
+    environment:
+      PORT: 5000
+      DRAX_JWT_SECRET: asd123
+      DRAX_JWT_EXPIRATION: 2h
+      DRAX_JWT_ISSUER: DRAX
+      DRAX_DB_ENGINE: mongo
+      DRAX_MONGO_URI: mongodb://127.0.0.1:27017/edni
+      DRAX_SQLITE_FILE: drax.db
+      DRAX_BASE_URL: http://localhost:8082
+      DRAX_MAX_UPLOAD_SIZE: 5000000
+      DRAX_FILE_DIR: uploads
+      RENAPER_USERNAME: xxx
+      RENAPER_PASSWORD: yyy
+
