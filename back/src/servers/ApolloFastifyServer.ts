@@ -41,7 +41,7 @@ class ApolloFastifyServer {
     }
 
     setupFastifyServer(): void {
-        this.fastifyServer = Fastify()
+        this.fastifyServer = Fastify({logger: true, trustProxy: true})
     }
 
     setupApolloServer(){
@@ -92,7 +92,7 @@ class ApolloFastifyServer {
     async start(port: number, baseUrl: string = 'http://localhost') {
         await this.apolloServer.start()
         await this.linkFastifyApollo()
-        await this.fastifyServer.listen({port: port});
+        await this.fastifyServer.listen({port: port, host: '0.0.0.0'});
         console.log(`🚀 Server FastifyApollo ready at ${baseUrl}:${port}`);
     }
 
