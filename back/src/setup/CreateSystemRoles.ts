@@ -1,10 +1,10 @@
 import {CreateOrUpdateRole} from "@drax/identity-back";
-import supervisorRole from "./data/roles/supervisor-role.js";
 import operatorRole from "./data/roles/operator-role.js";
+//import supervisorRole from "./data/roles/supervisor-role.js";
 
 async function CreateSystemRoles(){
     await CreateOrUpdateRole(operatorRole)
-    await CreateOrUpdateRole(supervisorRole)
+    //await CreateOrUpdateRole(supervisorRole)
 }
 
 export default CreateSystemRoles
