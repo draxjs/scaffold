@@ -5,6 +5,7 @@ import fastifyStatic from '@fastify/static';
 import fastifyMultipart from '@fastify/multipart';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import {CommonConfig, DraxConfig} from "@drax/common-back";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 
@@ -53,7 +54,12 @@ class FastifyServer {
 
 
     setupMultipart() {
-        this.fastifyServer.register(fastifyMultipart)
+        this.fastifyServer.register(fastifyMultipart,
+            {
+                limits: {
+                    fileSize: parseInt(DraxConfig.getOrLoad(CommonConfig.MaxUploadSize))
+                }
+            })
         //this.fastifyServer.addContentTypeParser('multipart/form-data', {}, (req, payload, done) => done(null))
     }
 
