@@ -19,9 +19,9 @@
   "license": "ISC",
   "dependencies": {
     "@drax/common-back": "^0.7.0",
-    "@drax/crud-back": "^0.7.10",
-    "@drax/identity-back": "^0.7.10",
-    "@drax/media-back": "^0.7.10",
+    "@drax/crud-back": "^0.7.13",
+    "@drax/identity-back": "^0.7.13",
+    "@drax/media-back": "^0.7.13",
     "@apollo/server": "^4.10.4",
     "@as-integrations/fastify": "^2.0.0",
     "@graphql-tools/load-files": "^7.0.0",
