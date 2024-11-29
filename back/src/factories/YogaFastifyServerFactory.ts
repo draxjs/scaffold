@@ -3,7 +3,7 @@ import {jwtMiddleware, rbacMiddleware, apiKeyMiddleware, UserRoutes, RoleRoutes,
 import {MediaRoutes} from "@drax/media-back"
 import ModuleMerger from "../merge/ModuleMerger.js";
 const {typeDefs, resolvers} = await ModuleMerger()
-
+import {GoogleFastifyRoutes} from "../modules/google/routes/GoogleRoutes.js"
 function YogaFastifyServerFactory(rootDir:string) {
     const server = new YogaFastifyServer(typeDefs, resolvers, rootDir);
     server.fastifyDecorateRequest('authUser',null)
@@ -15,6 +15,7 @@ function YogaFastifyServerFactory(rootDir:string) {
     server.fastifyRegister(RoleRoutes)
     server.fastifyRegister(TenantRoutes)
     server.fastifyRegister(UserApiKeyRoutes)
+    server.fastifyRegister(GoogleFastifyRoutes)
     return server
 }
 
