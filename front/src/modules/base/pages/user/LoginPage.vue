@@ -4,7 +4,7 @@ import {IdentityLogin} from "@drax/identity-vue";
 import {useDisplay, useTheme} from 'vuetify'
 import {computed} from 'vue'
 import {useRouter} from "vue-router";
-import GoogleLogin from "@/modules/base/components/GoogleLogin.vue";
+import GoogleLogin from "@/modules/google/components/GoogleLogin.vue";
 
 
 const router = useRouter()
