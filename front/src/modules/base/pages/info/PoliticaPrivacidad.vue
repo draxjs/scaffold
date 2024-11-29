@@ -3,7 +3,9 @@
 </script>
 
 <template>
-  <h1>ABOUT</h1>
+  <v-container>
+    <h1>Politicas de Privacidad</h1>
+  </v-container>
 </template>
 
 <style scoped>

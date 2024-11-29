@@ -23,14 +23,10 @@ import {useAuth} from "@drax/identity-vue";
 
 
 router.beforeEach((to, from) => {
-
   const {isAuthenticated, hasPermission} = useAuth()
-  if (to.name == 'Login') {
-    return true
-  }else if ((to.meta.auth && !isAuthenticated()) || (to.meta.permission && !hasPermission(to.meta.permission as string))) {
+  if ( !['Login'].includes(to.name as string) && (to.meta.auth && !isAuthenticated()) || (to.meta.permission && !hasPermission(to.meta.permission as string))) {
     return {path: '/login', query: {redirect: to.fullPath}}
   }
-  return true
 })
 
 export default router

@@ -53,17 +53,17 @@ const menu: MenuItem[] = [
     children: [
       {
         icon: 'mdi-information-outline',
-        text:'ABOUT',
-        link: { name: "InfoAbout" },
+        text:'POLITICA PRIVACIDAD',
+        link: { name: "PoliticaPrivacidad" },
         gallery: true,
         auth: true
       },
       {
         icon: 'mdi-frequently-asked-questions',
-        text:'FAQ',
-        link: { name: "InfoFaq" },
+        text:'CONDICIONES SERVICIO',
+        link: { name: "CondicionesServicio" },
         gallery: true,
-        auth: false
+        auth: true
       },
     ]
   }

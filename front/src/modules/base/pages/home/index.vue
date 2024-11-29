@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import GalleryMenu from "@/components/GalleryMenu/GalleryMenu.vue";
-import menu from '../../menu'
+import menu from '../../../../menu'
 
 </script>
 

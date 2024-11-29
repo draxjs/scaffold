@@ -3,7 +3,9 @@
 </script>
 
 <template>
-  <h1>FAQ</h1>
+<v-container>
+  <h1>Condiciones del Servicio</h1>
+</v-container>
 </template>
 
 <style scoped>

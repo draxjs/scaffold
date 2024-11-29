@@ -43,7 +43,7 @@ const {isAuthenticated} = useAuth()
       <identity-profile-avatar class="cursor-pointer" @click="profileDrawer = !profileDrawer"></identity-profile-avatar>
     </v-app-bar>
 
-    <identity-profile-drawer v-model="profileDrawer" ></identity-profile-drawer>
+    <identity-profile-drawer v-if="isAuthenticated()" v-model="profileDrawer" ></identity-profile-drawer>
 
     <animated-background></animated-background>
 
