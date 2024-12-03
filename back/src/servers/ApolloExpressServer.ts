@@ -86,7 +86,7 @@ class ApolloExpressServer {
         await this.apolloServer.start();
         this.linkExpressApollo()
 
-        await new Promise<void>((resolve) => this.httpServer.listen({port: port}, resolve));
+        await new Promise<void>((resolve) => this.httpServer.listen({port: port, host: '0.0.0.0'}, resolve));
 
         console.log(`🚀 Server ExpressApollo ready at ${baseUrl}:${port}`);
     }
