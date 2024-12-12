@@ -18,10 +18,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@drax/common-back": "^0.8.0",
-    "@drax/crud-back": "^0.8.2",
-    "@drax/identity-back": "^0.8.2",
-    "@drax/media-back": "^0.8.2",
+    "@drax/common-back": "^0.8.3",
+    "@drax/crud-back": "^0.8.3",
+    "@drax/identity-back": "^0.8.3",
+    "@drax/media-back": "^0.8.3",
     "@apollo/server": "^4.10.4",
     "@as-integrations/fastify": "^2.0.0",
     "@graphql-tools/load-files": "^7.0.0",
@@ -34,7 +34,8 @@
     "graphql-yoga": "^5.3.1",
     "mongoose": "^8.7.1",
     "mongoose-paginate-v2": "^1.8.5",
-    "mongoose-unique-validator": "^5.0.0"
+    "mongoose-unique-validator": "^5.0.0",
+    "google-auth-library": "^9.15.0"
   },
   "devDependencies": {
     "@tsconfig/recommended": "^1.0.2",

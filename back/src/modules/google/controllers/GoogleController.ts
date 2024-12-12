@@ -14,7 +14,12 @@ class GoogleController {
             const payload = await GoogleAuthServiceFactory.instance.validateToken(credential)
             const userService = UserServiceFactory()
             const roleService = RoleServiceFactory()
-            const role = await roleService.findByName('Learner')
+            const role = await roleService.findByName('Operator')
+
+            if(!role){
+                throw new Error('Role not found')
+            }
+
             const userData = {
                 email: payload.email,
                 username: payload.name.replace(' ', ''),

@@ -39,6 +39,8 @@ async function handleCredentialResponse(event: { credential: any }) {
 
 }
 
+const clientId = computed(() => import.meta.env.VITE_GOOGLE_CLIENT_ID)
+
 // Expose the function to the global scope
 window.handleCredentialResponse = handleCredentialResponse;
 
@@ -47,7 +49,7 @@ window.handleCredentialResponse = handleCredentialResponse;
 <template>
   <div>
     <div id="g_id_onload"
-         data-client_id="843392833286-0q2unvt910ik05sbc31kpsu2vg5lm800.apps.googleusercontent.com"
+         :data-client_id="clientId"
          data-callback="handleCredentialResponse"
     >
     </div>
