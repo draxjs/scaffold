@@ -1,18 +1,22 @@
 import {LoadPermissions} from "@drax/identity-back";
-import {IdentityPermissions} from "@drax/identity-back";
+import {
+    UserPermissions,
+    RolePermissions,
+    TenantPermissions,
+    UserApiKeyPermissions
+} from "@drax/identity-back";
 import {MediaPermissions} from "@drax/media-back";
 
 
 function InitializePermissions() {
 
-    //Load Identity Permissions
-    const identityPermissions = Object.values(IdentityPermissions)
-    const mediaPermissions = Object.values(MediaPermissions)
-
     //Merge All Permissions
     const permissions = [
-        ...identityPermissions,
-        ...mediaPermissions
+        ...Object.values(UserPermissions),
+        ...Object.values(RolePermissions),
+        ...Object.values(TenantPermissions),
+        ...Object.values(UserApiKeyPermissions),
+        ...Object.values(MediaPermissions),
     ]
 
     //Load All Permissions
