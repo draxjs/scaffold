@@ -47,7 +47,7 @@ window.handleCredentialResponse = handleCredentialResponse;
 </script>
 
 <template>
-  <div>
+  <div v-if="clientId">
     <div id="g_id_onload"
          :data-client_id="clientId"
          data-callback="handleCredentialResponse"
