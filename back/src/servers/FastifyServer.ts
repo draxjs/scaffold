@@ -37,7 +37,7 @@ class FastifyServer {
 
     setupWebFiles() {
         this.fastifyServer.register(fastifyStatic, {
-            root: path.join(this.rootDir, 'web'),
+            root: path.join(this.rootDir, 'public'),
             prefix: '/',
             index: 'index.html'
         });
