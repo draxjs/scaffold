@@ -35,7 +35,7 @@ function onLoginSuccess(){
         </h2>
 
 
-        <IdentityLogin @loginSuccess="onLoginSuccess"></IdentityLogin>
+        <IdentityLogin @loginSuccess="onLoginSuccess" recovery register></IdentityLogin>
 
         <div class="d-flex justify-center mt-4 mb-2">
           <google-login @loginSuccess="onLoginSuccess"></google-login>

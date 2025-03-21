@@ -6,6 +6,7 @@ import {
     UserApiKeyPermissions
 } from "@drax/identity-back";
 import {MediaPermissions} from "@drax/media-back";
+import {SettingPermissions} from "@drax/settings-back";
 
 
 function InitializePermissions() {
@@ -17,6 +18,7 @@ function InitializePermissions() {
         ...Object.values(TenantPermissions),
         ...Object.values(UserApiKeyPermissions),
         ...Object.values(MediaPermissions),
+        ...Object.values(SettingPermissions),
     ]
 
     //Load All Permissions

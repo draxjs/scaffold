@@ -1,6 +1,7 @@
 import FastifyServer from "../servers/FastifyServer.js";
 import {jwtMiddleware, rbacMiddleware, apiKeyMiddleware, UserRoutes, RoleRoutes, TenantRoutes, UserApiKeyRoutes} from "@drax/identity-back"
 import {MediaRoutes} from "@drax/media-back"
+import {SettingRoutes} from "@drax/settings-back"
 import {GoogleFastifyRoutes} from "../modules/google/routes/GoogleRoutes.js"
 
 function YogaFastifyServerFactory(rootDir:string) {
@@ -10,6 +11,7 @@ function YogaFastifyServerFactory(rootDir:string) {
     server.fastifyHook('onRequest',apiKeyMiddleware)
     server.fastifyHook('onRequest',rbacMiddleware)
     server.fastifyRegister(MediaRoutes)
+    server.fastifyRegister(SettingRoutes)
     server.fastifyRegister(UserRoutes)
     server.fastifyRegister(RoleRoutes)
     server.fastifyRegister(TenantRoutes)

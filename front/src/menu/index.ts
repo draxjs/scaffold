@@ -43,6 +43,13 @@ const menu: MenuItem[] = [
         gallery: true,
         permission: 'userApiKey:manage'
       },
+      {
+        icon: 'mdi mdi-cog',
+        text:'Ajustes',
+        link: { name: "SettingPage" },
+        gallery: true,
+        permission: 'setting:manage'
+      },
     ]
   },
   {

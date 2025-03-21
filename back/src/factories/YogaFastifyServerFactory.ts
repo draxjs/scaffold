@@ -4,6 +4,7 @@ import {MediaRoutes} from "@drax/media-back"
 import ModuleMerger from "../merge/ModuleMerger.js";
 const {typeDefs, resolvers} = await ModuleMerger()
 import {GoogleFastifyRoutes} from "../modules/google/routes/GoogleRoutes.js"
+import {SettingRoutes} from "@drax/settings-back";
 function YogaFastifyServerFactory(rootDir:string) {
     const server = new YogaFastifyServer(typeDefs, resolvers, rootDir);
     server.fastifyDecorateRequest('authUser',null)
@@ -11,6 +12,7 @@ function YogaFastifyServerFactory(rootDir:string) {
     server.fastifyHook('onRequest',apiKeyMiddleware)
     server.fastifyHook('onRequest',rbacMiddleware)
     server.fastifyRegister(MediaRoutes)
+    server.fastifyRegister(SettingRoutes)
     server.fastifyRegister(UserRoutes)
     server.fastifyRegister(RoleRoutes)
     server.fastifyRegister(TenantRoutes)

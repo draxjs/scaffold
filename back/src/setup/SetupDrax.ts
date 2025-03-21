@@ -3,7 +3,7 @@ import { LoadIdentityConfigFromEnv} from "@drax/identity-back";
 import InitializePermissions from "./InitializePermissions.js";
 import CreateRootUserAndAdminRole from "./CreateRootUserAndAdminRole.js";
 import CreateSystemRoles from "./CreateSystemRoles.js";
-
+import InitializeSettings from "./InitializeSettings.js";
 
 async function SetupDrax(){
 
@@ -20,6 +20,9 @@ async function SetupDrax(){
 
     //Setup Permissions
     InitializePermissions()
+
+    //Setup Settings
+    await InitializeSettings()
 
     //Create Root User and Admin Role
     await CreateRootUserAndAdminRole()
