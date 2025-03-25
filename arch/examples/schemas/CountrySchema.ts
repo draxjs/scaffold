@@ -3,6 +3,8 @@ import {IEntitySchema} from "@drax/arch";
 const schema: IEntitySchema = {
     module: "people",
     name: "Country",
+    apiBasePath:'countries',
+    apiTag: 'ERP',
     schema: {
         name: {type: 'string', required: true, unique: true, index: true, search:true, header: true},
         flag: {type: 'file', required: false, index:false, unique:false, header: true},
