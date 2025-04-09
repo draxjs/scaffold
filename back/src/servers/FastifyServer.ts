@@ -31,7 +31,6 @@ class FastifyServer {
         this.rootDir = rootDir ? rootDir : path.join(__dirname);
         this.setupFastifyServer()
         this.disableValidations()
-        //this.debugSerialization()
         this.setupErrorHandler()
         this.setupMultipart()
         this.setupStatusRoute()
@@ -53,39 +52,17 @@ class FastifyServer {
                     allErrors: true, // Muestra todos los errores de validación
                     verbose: true, // Proporciona más contexto
 
-                    // strict: false,
-                    // strictSchema: false,
-                    // strictRequired: false,
-                    // verbose: true,
-                    // validateSchema: false,
                 }
             }
         })
     }
 
+    /*
+     * Deshabilita las validaciones en Fastify para delegar a los servicios el manejo de errores y validaciones
+    */
     disableValidations(){
         this.fastifyServer.setValidatorCompiler(() => () => true);
     }
-
-    debugSerialization(){
-        this.fastifyServer.setSerializerCompiler(({ schema, method, url, httpStatus, contentType }) => {
-            return (data) => {
-                console.log("Schema:", schema)
-                console.log("Method:", method)
-                console.log("URL:", url)
-                console.log("HTTP Status:", httpStatus)
-                console.log("Content Type:", contentType)
-                console.log("Data:", data)
-
-                //@ts-ignore
-                const stringify = builderStringify(schema.response, { debug: true });
-                return stringify(data)
-            }
-        })
-
-    }
-
-
 
     setupSwagger(){
         this.fastifyServer.register(fastifySwagger as any, {
@@ -96,12 +73,6 @@ class FastifyServer {
                     description: 'Drax swagger API',
                     version: '1.0.0'
                 },
-                // servers: [
-                //     {
-                //         url: 'http://localhost:3000',
-                //         description: 'Development server'
-                //     }
-                // ],
                 tags: [
                     { name: 'Auth', description: 'Auth related end-points' },
                     { name: 'Identity', description: 'Identity, User, Role, Tenant related end-points' },
