@@ -126,8 +126,17 @@ class FastifyServer {
         },)
     }
 
+    get getFileSizeLimit():number{
+        const DRAX_MAX_UPLOAD_SIZE = process.env.DRAX_MAX_UPLOAD_SIZE
+        return DRAX_MAX_UPLOAD_SIZE ? parseInt(DRAX_MAX_UPLOAD_SIZE) + 10000 : 100000000; // 100MB
+    }
+
     setupMultipart() {
-        this.fastifyServer.register(fastifyMultipart)
+        this.fastifyServer.register(fastifyMultipart,{
+            limits: {
+                fileSize: this.getFileSizeLimit,
+            }
+        })
         //this.fastifyServer.addContentTypeParser('multipart/form-data', {}, (req, payload, done) => done(null))
     }
 
