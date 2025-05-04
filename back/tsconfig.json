@@ -10,7 +10,8 @@
     "outDir": "../out",
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "skipLibCheck": true
   },
   "exclude": ["test", "types","dist","node_modules"],
   "ts-node": {

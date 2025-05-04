@@ -17,6 +17,6 @@ npm install --production
 cd ..
 
 echo "DEPLOY: Copy runpm2.sh"
-sh runpm2.sh
+sh pm2-start.sh
 
 echo "DEPLOY: END"
