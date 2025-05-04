@@ -7,8 +7,6 @@ module.exports = {
 			env: {
 				NODE_ENV: 'production',
 				HOST: '0.0.0.0',
-				PORT: '9090',
-
 				//JWT
 				DRAX_JWT_SECRET: '',
 				DRAX_JWT_EXPIRATION: '2h',
