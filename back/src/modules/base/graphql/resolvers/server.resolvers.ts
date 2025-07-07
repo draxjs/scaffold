@@ -1,4 +1,4 @@
-import ServerService from "../../services/ServerService.mjs";
+import ServerService from "../../services/ServerService.js";
 export default {
     Query: {
         server: () => {

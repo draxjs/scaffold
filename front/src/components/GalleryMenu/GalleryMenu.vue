@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import MenuCard from '@/components/MenuCard/MenuCard.vue'
-import {useMenu} from '@/composables/useMenu'
+import MenuCard from '../MenuCard/MenuCard.vue'
+import {useMenu} from '@drax/common-vue'
 import {PropType} from "vue";
-import type {MenuItem} from "@/types/menu";
+import type {IMenuItem} from "@drax/common-share";
 
-const {isActive, isGranted, childActives, itemText} = useMenu()
+const {isActive, isGranted, childrenGranted, hasChildrenGranted, itemText} = useMenu()
 
 defineProps({
   menu: {
-    type: Array as PropType<MenuItem[]>,
+    type: Array as PropType<IMenuItem[]>,
     required: true
   }
 });
@@ -20,7 +20,7 @@ defineProps({
       <template v-for="(item) in menu" key="item.text">
 
         <v-col
-          v-if="item.children && isGranted(item) && item.gallery"
+          v-if="item.gallery && isGranted(item) && item.children && hasChildrenGranted(item.children)"
           cols="12"
           :key="item.text"
           :value="isActive(item)"
@@ -32,7 +32,7 @@ defineProps({
 
           <v-row>
             <v-col cols="12" sm="4" md="4" lg="3"  xl="2"
-                   v-for="child in childActives(item.children)"
+                   v-for="child in childrenGranted(item.children)"
                    :key="child.text"
             >
               <menu-card
@@ -46,7 +46,7 @@ defineProps({
         </v-col>
 
         <v-col
-          v-else-if="isGranted(item) && item.gallery"
+          v-else-if="isGranted(item) && item.gallery && !item.children"
           cols="12" sm="4" md="4" lg="3" xl="2"
           :key="'e'+item.text"
         >

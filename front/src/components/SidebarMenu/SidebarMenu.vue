@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import {useMenu} from '@/composables/useMenu'
+import {useMenu} from '@drax/common-vue'
 import {PropType} from "vue";
-import type {MenuItem} from "@/types/menu";
+import type {IMenuItem} from "@drax/common-share";
 
-const {isActive, isGranted, childActives, itemText } = useMenu()
+const { isGranted, childrenGranted,hasChildrenGranted, itemText } = useMenu()
 
 defineProps({
   menu: {
-    type: Array as PropType<MenuItem[]>,
+    type: Array as PropType<IMenuItem[]>,
     required: true
   }
 });
@@ -17,10 +17,10 @@ defineProps({
 
 <template>
   <v-list dense class="pt-3">
-    <template v-for="(item,index) in menu" :key="index">
+    <template v-for="(item,index) in menu" >
 
       <v-list-group
-        v-if="item.children && isGranted(item)"
+        v-if="isGranted(item) && item.children && hasChildrenGranted(item.children)"
         :value="index"
         :key="`group-${index}`"
       >
@@ -34,19 +34,18 @@ defineProps({
         </template>
 
         <v-list-item
-          v-for="(child, i) in childActives(item.children)"
+          v-for="(child, i) in childrenGranted(item.children)"
           :key="`child-${index}-${i}`"
           :to="child.link"
           :prepend-icon="child.icon"
           :title="itemText(child)"
-
         />
 
       </v-list-group>
 
 
       <v-list-item
-        v-else-if="isGranted(item)"
+        v-else-if="isGranted(item) && !item.children"
         :to="item.link" exact
         :prepend-icon="item.icon"
         :title="itemText(item)"
