@@ -5,13 +5,15 @@ async function InitializeSettings() {
     const settingService = SettingServiceFactory()
 
     await settingService.createOrUpdate({
-        category: 'Server',
-        key: 'ServerName',
-        value: 'DraxServer',
+        category: 'General',
+        key: 'AppName',
+        value: 'DraxApp',
         label: 'String',
         type: 'string',
         prefix: '',
-        suffix: ''
+        suffix: '',
+        public: true,
+        permission: null
     })
 
     // await settingService.createOrUpdate({
@@ -21,7 +23,9 @@ async function InitializeSettings() {
     //     label: 'String',
     //     type: 'string',
     //     prefix: 'PREFIX_',
-    //     suffix: '_SUFFIX'
+    //     suffix: '_SUFFIX',
+    //     public: false,
+    //     permission: null
     // })
     //
     // await settingService.createOrUpdate({

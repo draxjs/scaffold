@@ -2,6 +2,7 @@
 import {onMounted, ref} from 'vue'
 import menu from '../menu'
 import {IdentityProfileAvatar, IdentityProfileDrawer, useAuth} from "@drax/identity-vue";
+import {useSettingStore} from "@drax/settings-vue";
 import DarkMode from "../components/DarkMode/index.vue";
 import SidebarMenu from "../components/SidebarMenu/SidebarMenu.vue";
 import AnimatedBackground from "../components/AnimatedBackground/AnimatedBackground.vue";
@@ -19,9 +20,13 @@ let profileDrawer = ref(false)
 let drawer = ref(false)
 
 const {push} = useRouter()
+const settingStore = useSettingStore()
 
 const {isAuthenticated} = useAuth()
 
+const appName = computed(() => {
+  return settingStore.getSettingValueByKey('AppName')
+})
 </script>
 
 <template>
@@ -35,6 +40,7 @@ const {isAuthenticated} = useAuth()
         <v-btn icon @click="push({name:'Root'})">
           <v-icon>mdi-home</v-icon>
         </v-btn>
+       <v-app-bar-title> {{appName}}</v-app-bar-title>
       </slot>
       <v-spacer></v-spacer>
       <slot name="toolbar-right"></slot>

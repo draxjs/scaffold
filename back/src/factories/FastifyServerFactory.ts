@@ -4,7 +4,7 @@ import {MediaRoutes} from "@drax/media-back"
 import {SettingRoutes} from "@drax/settings-back"
 import {GoogleFastifyRoutes} from "../modules/google/routes/GoogleRoutes.js"
 
-function YogaFastifyServerFactory(rootDir:string) {
+function FastifyServerFactory(rootDir:string) {
     const server = new FastifyServer(rootDir);
     server.fastifyDecorateRequest('authUser',null)
     server.fastifyHook('onRequest',jwtMiddleware)
@@ -21,4 +21,4 @@ function YogaFastifyServerFactory(rootDir:string) {
     return server
 }
 
-export default YogaFastifyServerFactory
+export default FastifyServerFactory
