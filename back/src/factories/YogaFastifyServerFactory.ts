@@ -1,10 +1,11 @@
 import YogaFastifyServer from "../servers/YogaFastifyServer.js";
-import {jwtMiddleware, rbacMiddleware, apiKeyMiddleware, UserRoutes, RoleRoutes, TenantRoutes, UserApiKeyRoutes} from "@drax/identity-back"
+import {jwtMiddleware, rbacMiddleware, apiKeyMiddleware, UserRoutes, RoleRoutes, TenantRoutes, UserApiKeyRoutes,     UserLoginFailRoutes, UserSessionRoutes} from "@drax/identity-back"
 import {MediaRoutes} from "@drax/media-back"
 import ModuleMerger from "../merge/ModuleMerger.js";
 const {typeDefs, resolvers} = await ModuleMerger()
 import {GoogleFastifyRoutes} from "../modules/google/routes/GoogleRoutes.js"
 import {SettingRoutes} from "@drax/settings-back";
+import {DashboardRoutes} from "@drax/dashboard-back";
 function YogaFastifyServerFactory(rootDir:string) {
     const server = new YogaFastifyServer(typeDefs, resolvers, rootDir);
     server.fastifyDecorateRequest('authUser',null)
@@ -18,6 +19,10 @@ function YogaFastifyServerFactory(rootDir:string) {
     server.fastifyRegister(TenantRoutes)
     server.fastifyRegister(UserApiKeyRoutes)
     server.fastifyRegister(GoogleFastifyRoutes)
+
+    server.fastifyRegister(UserLoginFailRoutes)
+    server.fastifyRegister(UserSessionRoutes)
+    server.fastifyRegister(DashboardRoutes)
     return server
 }
 

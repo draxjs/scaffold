@@ -5,6 +5,8 @@ import router from "@/router";
 import pinia from "@/stores";
 import { createApp } from 'vue'
 import {setupAuth} from "./setup/SetupAuth";
+import setupSetting from "./setup/SetupSetting";
+import setupDashboard from "./setup/SetupDashboard";
 
 //Setup App
 const app = createApp(App)
@@ -13,18 +15,14 @@ const app = createApp(App)
 app.use(pinia)
 
 //Setup Settings
-import { useSetting } from '@drax/settings-vue'
-const {fetchSettings, suscribeAuth} = useSetting()
-await fetchSettings()
-await suscribeAuth()
+setupSetting().then(() => {console.log("Setting Setup Done")})
+
+//Setup Dashboard
+setupDashboard()
 
 //Setup Custom Identity Cruds
-// import { useIdentityCrudStore } from '@drax/identity-vue'
-// import CustomUserCrud from './modules/base/cruds/CustomUserCrud'
-// import CustomRoleCrud from "./modules/base/cruds/CustomRoleCrud";
-// const identityCrudStore = useIdentityCrudStore()
-// identityCrudStore.setUserCrud(new CustomUserCrud())
-// identityCrudStore.setRoleCrud(new CustomRoleCrud())
+//setupCustomIdentity()
+
 
 //Setup Router, I18n and Vuetify
 app

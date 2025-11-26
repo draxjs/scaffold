@@ -10,15 +10,17 @@
     "lint": "eslint . --fix --ignore-path .gitignore"
   },
   "dependencies": {
-    "@drax/common-front": "0.36.0",
-    "@drax/crud-front": "0.36.0",
-    "@drax/crud-vue": "0.36.0",
-    "@drax/identity-front": "^0.36.0",
-    "@drax/identity-vue": "^0.36.0",
-    "@drax/media-front": "^0.36.0",
-    "@drax/media-vue": "^0.36.0",
-    "@drax/settings-front": "^0.36.0",
-    "@drax/settings-vue": "^0.36.0",
+    "@drax/common-front": "0.37.0",
+    "@drax/crud-front": "0.37.1",
+    "@drax/crud-vue": "0.37.2",
+    "@drax/identity-front": "^0.37.1",
+    "@drax/identity-vue": "^0.37.3",
+    "@drax/media-front": "^0.37.0",
+    "@drax/media-vue": "^0.37.0",
+    "@drax/settings-front": "^0.37.0",
+    "@drax/settings-vue": "^0.37.3",
+    "@drax/dashboard-front": "^0.37.0",
+    "@drax/dashboard-vue": "^0.37.3",
     "@mdi/font": "7.4.47",
     "core-js": "^3.34.0",
     "deepmerge": "^4.3.1",
@@ -28,7 +30,7 @@
     "vue": "^3.5.3",
     "vue-i18n": "^9.13.1",
     "vuetify": "^3.7.1",
-    "dayjs": "^1.11.11"
+    "dayjs": "^1.11.19"
   },
   "devDependencies": {
     "@babel/types": "^7.24.0",
