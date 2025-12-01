@@ -1,28 +1,25 @@
-/**
- * router/index.ts
- *
- * Automatic routes for `./src/pages/*.vue`
- */
-
-// Composables
 import {createRouter, createWebHistory} from 'vue-router'
 import {setupLayouts} from 'virtual:generated-layouts'
 import iroutes from './routes'
 import {IdentityRoutes} from "@drax/identity-vue";
 import {SettingRoutes} from "@drax/settings-vue";
 import {DashboardCrudRoute} from "@drax/dashboard-vue";
+import {AuditRoutes} from "@drax/audit-vue";
 
-const routes = setupLayouts([ ...iroutes, ...IdentityRoutes, ...SettingRoutes,...DashboardCrudRoute])
+const routes = setupLayouts([
+  ...iroutes,
+  ...IdentityRoutes,
+  ...SettingRoutes,
+  ...DashboardCrudRoute,
+  ...AuditRoutes
+])
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes,
-
 })
 
 import {useAuth} from "@drax/identity-vue";
-
-
 
 router.beforeEach((to, from) => {
   const {isAuthenticated, hasPermission} = useAuth()

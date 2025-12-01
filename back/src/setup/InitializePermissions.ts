@@ -10,6 +10,7 @@ import {
 import {MediaPermissions} from "@drax/media-back";
 import {SettingPermissions} from "@drax/settings-back";
 import {DashboardPermissions} from "@drax/dashboard-back";
+import {AuditPermissions} from "@drax/audit-back";
 
 
 function InitializePermissions() {
@@ -25,6 +26,7 @@ function InitializePermissions() {
         ...Object.values(MediaPermissions),
         ...Object.values(SettingPermissions),
         ...Object.values(DashboardPermissions),
+        ...Object.values(AuditPermissions),
     ]
 
     //Load All Permissions

@@ -31,7 +31,9 @@ class GoogleController {
                 password: undefined,
                 origin: 'Google'
             }
-            return await userService.authByEmail(payload.email,true, userData)
+            const userAgent = request.headers['user-agent']
+            const ip = request.ip
+            return await userService.authByEmail(payload.email,true, userData, { userAgent, ip })
 
 
         }catch (e){
