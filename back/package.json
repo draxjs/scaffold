@@ -18,13 +18,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@drax/common-back": "^0.39.0",
-    "@drax/crud-back": "^0.39.0",
-    "@drax/identity-back": "^0.39.0",
-    "@drax/media-back": "^0.39.0",
-    "@drax/settings-back": "^0.39.0",
-    "@drax/dashboard-back": "^0.39.0",
-    "@drax/audit-back": "^0.39.0",
+    "@drax/common-back": "^0.40.0",
+    "@drax/crud-back": "^0.40.0",
+    "@drax/identity-back": "^0.40.0",
+    "@drax/media-back": "^0.40.0",
+    "@drax/settings-back": "^0.40.0",
+    "@drax/dashboard-back": "^0.40.0",
+    "@drax/audit-back": "^0.40.0",
     "@graphql-tools/load-files": "^7.0.0",
     "@graphql-tools/merge": "^9.0.0",
     "better-sqlite3": "^11.0.0",
@@ -51,6 +51,7 @@
     "ts-node": "^10.9.1",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.0.4",
-    "tsx": "^4.19.1"
+    "tsx": "^4.19.1",
+    "vitest": "^3.2.4"
   }
 }

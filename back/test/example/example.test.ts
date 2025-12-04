@@ -1,4 +1,4 @@
-import {describe, test} from "node:test"
+import {describe, test, expect} from "vitest"
 import * as assert from "assert";
 
 describe("Base Test", () => {
@@ -6,7 +6,7 @@ describe("Base Test", () => {
 
     test('Simple test', async () => {
 
-        assert.equal(1, 1)
+        expect(1).toBe(1)
     })
 
 })
