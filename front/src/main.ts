@@ -6,7 +6,7 @@ import pinia from "@/stores";
 import { createApp } from 'vue'
 import {setupAuth} from "./setup/SetupAuth";
 import setupSetting from "./setup/SetupSetting";
-import setupDashboard from "./setup/SetupDashboard";
+import SetupEntities from "./setup/SetupEntities";
 
 //Setup App
 const app = createApp(App)
@@ -17,8 +17,8 @@ app.use(pinia)
 //Setup Settings
 setupSetting().then(() => {console.log("Setting Setup Done")})
 
-//Setup Dashboard
-setupDashboard()
+//Setup Entities
+SetupEntities()
 
 //Setup Custom Identity Cruds
 //setupCustomIdentity()
