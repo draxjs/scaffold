@@ -6,10 +6,10 @@ await SetupDrax()
 
 const ROOT_DIR = path.dirname(fileURLToPath(import.meta.url));
 
-import YogaFastifyServerFactory from './factories/YogaFastifyServerFactory.js'
+import FastifyServerFactory from './factories/FastifyServerFactory.js'
 
 const PORT = parseInt(process.env.DRAX_PORT) || 8080;
-const serverYogaFastify = YogaFastifyServerFactory(ROOT_DIR)
+const serverYogaFastify = FastifyServerFactory(ROOT_DIR)
 await serverYogaFastify.start(PORT);
 
 

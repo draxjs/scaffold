@@ -3,6 +3,7 @@ import {jwtMiddleware, rbacMiddleware, apiKeyMiddleware, UserRoutes, RoleRoutes,
 import {MediaRoutes} from "@drax/media-back"
 import {SettingRoutes} from "@drax/settings-back"
 import {GoogleFastifyRoutes} from "../modules/google/routes/GoogleRoutes.js"
+import {HealthRoutes} from "../modules/base/routes/HealthRoutes.js"
 
 function FastifyServerFactory(rootDir:string) {
     const server = new FastifyServer(rootDir);
@@ -10,6 +11,9 @@ function FastifyServerFactory(rootDir:string) {
     server.fastifyHook('onRequest',jwtMiddleware)
     server.fastifyHook('onRequest',apiKeyMiddleware)
     server.fastifyHook('onRequest',rbacMiddleware)
+
+    server.fastifyRegister(HealthRoutes)
+
     server.fastifyRegister(MediaRoutes)
     server.fastifyRegister(SettingRoutes)
     server.fastifyRegister(UserRoutes)

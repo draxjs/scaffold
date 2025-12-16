@@ -7,12 +7,18 @@ import {GoogleFastifyRoutes} from "../modules/google/routes/GoogleRoutes.js"
 import {SettingRoutes} from "@drax/settings-back";
 import {DashboardRoutes} from "@drax/dashboard-back";
 import {AuditRoutes} from "@drax/audit-back";
+import {HealthRoutes} from "../modules/base/routes/HealthRoutes.js"
+
+
 function YogaFastifyServerFactory(rootDir:string) {
     const server = new YogaFastifyServer(typeDefs, resolvers, rootDir);
     server.fastifyDecorateRequest('authUser',null)
     server.fastifyHook('onRequest',jwtMiddleware)
     server.fastifyHook('onRequest',apiKeyMiddleware)
     server.fastifyHook('onRequest',rbacMiddleware)
+
+    server.fastifyRegister(HealthRoutes)
+
     server.fastifyRegister(MediaRoutes)
     server.fastifyRegister(SettingRoutes)
     server.fastifyRegister(UserRoutes)
