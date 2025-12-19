@@ -1,5 +1,15 @@
 import YogaFastifyServer from "../servers/YogaFastifyServer.js";
-import {jwtMiddleware, rbacMiddleware, apiKeyMiddleware, UserRoutes, RoleRoutes, TenantRoutes, UserApiKeyRoutes,     UserLoginFailRoutes, UserSessionRoutes} from "@drax/identity-back"
+import {
+    jwtMiddleware,
+    rbacMiddleware,
+    apiKeyMiddleware,
+    UserRoutes,
+    RoleRoutes,
+    TenantRoutes,
+    UserApiKeyRoutes,
+    UserSessionRoutes,
+    UserLoginFailRoutes
+} from "@drax/identity-back"
 import {MediaRoutes} from "@drax/media-back"
 import ModuleMerger from "../merge/ModuleMerger.js";
 const {typeDefs, resolvers} = await ModuleMerger()
@@ -25,10 +35,12 @@ function YogaFastifyServerFactory(rootDir:string) {
     server.fastifyRegister(RoleRoutes)
     server.fastifyRegister(TenantRoutes)
     server.fastifyRegister(UserApiKeyRoutes)
+    server.fastifyRegister(UserSessionRoutes)
+    server.fastifyRegister(UserLoginFailRoutes)
+
     server.fastifyRegister(GoogleFastifyRoutes)
 
-    server.fastifyRegister(UserLoginFailRoutes)
-    server.fastifyRegister(UserSessionRoutes)
+
     server.fastifyRegister(DashboardRoutes)
     server.fastifyRegister(AuditRoutes)
     return server

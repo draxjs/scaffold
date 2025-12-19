@@ -8,8 +8,7 @@ import fastifySwaggerUi from '@fastify/swagger-ui'
 import path from 'path';
 import { fileURLToPath } from 'url';
 import {InternalServerError} from "@drax/common-back";
-import builderStringify from "fast-json-stringify"
-
+import pino from 'pino'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -38,23 +37,58 @@ class FastifyServer {
         this.setupSwagger()
     }
 
+
+
     setupFastifyServer(): void {
         this.fastifyServer = Fastify({
-            logger: true,
+            logger: this.logger(),
             ajv:{
                 customOptions:{
-                    // strict: "log",
-                    // strictSchema: "log",
-                    // strictRequired: "log",
-                    // verbose: true,
-                    // validateSchema: "log",
-
                     allErrors: true, // Muestra todos los errores de validación
                     verbose: true, // Proporciona más contexto
 
                 }
             }
         })
+    }
+
+    logger(){
+        return {
+            level: 'info',
+            base: undefined,
+            timestamp: pino.stdTimeFunctions.isoTime,
+            formatters: {
+                level: (label: any) => {
+                    return { level: label };
+                },
+                bindings: () => {
+                    return {};
+                },
+                log (object: any) {
+                    delete object.msg
+                    return object
+                }
+            },
+            serializers: {
+                req: (req: any) => {
+                    return {
+                        method: req.method,
+                        route: req.url,
+                        ip: req.ip,
+
+                    };
+                },
+                res: (reply: any) => {
+                    return {
+                        status_code: reply?.statusCode,
+                        method: reply.request?.method,
+                        route: reply.request?.url,
+                        user: reply?.rbac?.username || null,
+                        tenant: reply?.rbac?.tenantName || null,
+                    };
+                }
+            }
+        };
     }
 
     /*
