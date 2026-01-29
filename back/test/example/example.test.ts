@@ -1,8 +1,6 @@
 import {describe, test, expect} from "vitest"
-import * as assert from "assert";
 
 describe("Base Test", () => {
-
 
     test('Simple test', async () => {
 
