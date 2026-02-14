@@ -26,6 +26,6 @@ const messages = merge.all([
   AuditI18nMessages,
   DashboardI18nMessages,
   SettingI18nMessages
-]) as LocaleMessages<any>
+]) as LocaleMessages<never>
 
 export default messages

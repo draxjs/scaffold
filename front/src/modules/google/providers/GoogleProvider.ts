@@ -28,16 +28,16 @@ class GoogleProvider {
     return GoogleProvider.singleton
   }
 
-  async login(credential: string): Promise<any> {
+  async login(credential: string): Promise<{accessToken: string}> {
     const url = this.basePath + '/login'
-    const response:any = await this.httpClient.post(url, {credential}, {timeout: 120000})
+    const response:{accessToken: string} = await this.httpClient.post(url, {credential}, {timeout: 120000}) as {accessToken: string}
     const {loginWithToken} = useAuth()
     this.setHttpClientToken(response.accessToken)
     await loginWithToken(response.accessToken)
     return response
   }
 
-  async logout(): Promise<any> {
+  async logout(): Promise<object|string> {
     const url = this.basePath + '/logout'
     const response = await this.httpClient.post(url, {}, {timeout: 120000})
     return response

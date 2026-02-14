@@ -6,7 +6,7 @@ import {useDarkMode} from "@/composables/useDarkMode";
 declare global {
   interface Window {
     gapi: any,
-    handleCredentialResponse: Function
+    handleCredentialResponse: (event: { credential: any }) => Promise<void>
   }
 }
 
