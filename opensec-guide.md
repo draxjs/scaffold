@@ -4,6 +4,14 @@ Esta guía explica cómo inicializar OpenSpec en este repositorio y configurarlo
 
 ## 1. Inicialización de OpenSpec
 
+Requires Node.js 20.19.0 or higher.
+
+Install OpenSpec globally:
+
+```bash
+npm install -g @fission-ai/openspec@latest
+```
+
 Para comenzar a utilizar OpenSpec en el proyecto, primero debes inicializar la configuración. Ejecuta el siguiente comando en la raíz del repositorio:
 
 ```bash
