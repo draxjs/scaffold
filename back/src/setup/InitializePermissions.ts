@@ -12,6 +12,8 @@ import {SettingPermissions} from "@drax/settings-back";
 import {DashboardPermissions} from "@drax/dashboard-back";
 import {AuditPermissions} from "@drax/audit-back";
 
+import {BasePermissions} from "../modules/base/permissions/BasePermissions";
+
 
 function InitializePermissions() {
 
@@ -27,6 +29,10 @@ function InitializePermissions() {
         ...Object.values(SettingPermissions),
         ...Object.values(DashboardPermissions),
         ...Object.values(AuditPermissions),
+
+        //Local modules permissions
+        ...Object.values(BasePermissions),
+
     ]
 
     //Load All Permissions

@@ -100,7 +100,7 @@ Here is a complete example of a complex entity schema covering various field typ
 ```typescript
 import { IEntitySchema } from "@drax/arch";
 
-const schema: IEntitySchema = {
+const entitySchema: IEntitySchema = {
     module: "inventory",
     name: "Product",
     apiBasePath: 'products',
@@ -190,6 +190,6 @@ const schema: IEntitySchema = {
     }
 }
 
-export default schema;
-export { schema };
+export default entitySchema;
+export { entitySchema };
 ```
