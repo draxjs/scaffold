@@ -7,7 +7,9 @@
   "private": true,
   "scripts": {
     "build": "tsx src/index.ts",
-    "buildExample": "tsx examples/index.ts"
+    "buildExample": "tsx examples/index.ts",
+    "copy:safe": "tsx src/copy-safe.ts",
+    "copy:force": "tsx src/copy-force.ts"
   },
   "author": "Cristian Incarnato",
   "license": "ISC",
