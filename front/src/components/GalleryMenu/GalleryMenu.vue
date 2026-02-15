@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import MenuCard from '../MenuCard/MenuCard.vue'
-import {useMenu} from '@drax/common-vue'
+import {useMenu} from '../../composables/useMenu'
 import {PropType} from "vue";
 import type {IMenuItem} from "@drax/common-share";
 

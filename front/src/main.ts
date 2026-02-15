@@ -1,7 +1,7 @@
 import App from './App.vue'
-import i18n from "@/i18n/I18n";
+import indexI18n from "@/i18n/index-I18n";
 import vuetify from "@/plugins/vuetify";
-import router from "@/router";
+import router from "@/router/index-routes";
 import pinia from "@/stores";
 import { createApp } from 'vue'
 import {setupAuth} from "./setup/SetupAuth";
@@ -28,7 +28,7 @@ SetupEntities()
 app
   .use(vuetify)
   .use(router)
-  .use(i18n)
+  .use(indexI18n)
 
 //Setup Auth
 setupAuth()

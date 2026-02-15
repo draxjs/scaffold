@@ -1,11 +1,11 @@
 import baseRoutes from '../modules/base/routes/index.js'
 import googleRoutes from '../modules/google/routes/index.js'
 
-const routes = [
+const modulesRoutes = [
   ...baseRoutes,
   ...googleRoutes
 
 ]
 
-export default routes
-export {routes}
+export default modulesRoutes
+export {modulesRoutes}

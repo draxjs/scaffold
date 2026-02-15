@@ -3,27 +3,27 @@ import type {MenuItem} from '../types/menu'
 const menu: MenuItem[] = [
   {
     icon: 'mdi-home',
-    text:'HOME',
+    text:'home',
     link: { name: "Home" },
     gallery: false,
     auth: false
   },
   {
     icon: 'mdi-account-circle',
-    text:'Admin',
+    text:'admin',
     gallery: true,
     permission: 'user:manage',
     children: [
       {
         icon: 'mdi-domain',
-        text:'Tenant',
+        text:'tenant.menu',
         link: { name: "CrudTenant" },
         gallery: true,
         permission: 'tenant:manage'
       },
       {
         icon: 'mdi-chair-rolling',
-        text:'Roles',
+        text:'role.menu',
         link: { name: "CrudRole" },
         gallery: true,
         permission: 'role:manage'
@@ -31,35 +31,35 @@ const menu: MenuItem[] = [
 
       {
         icon: 'mdi-table-account',
-        text:'Users',
+        text:'user.menu',
         link: { name: "CrudUser" },
         gallery: true,
         permission: 'user:manage'
       },
       {
         icon: 'mdi mdi-table-key',
-        text:'Api Keys',
+        text:'userapikey.menu',
         link: { name: "CrudUserApiKey" },
         gallery: true,
         permission: 'userApiKey:manage'
       },
       {
         icon: 'mdi-account-arrow-right',
-        text:'UserSession',
+        text:'usersession.menu',
         link: { name: "UserSessionCrudPage" },
         gallery: true,
-        permission: 'usersession:manage'
+        permission: 'usersession:menu'
       },
       {
         icon: 'mdi-lock-alert-outline',
-        text:'UserLoginFail',
+        text:'userloginfail.menu',
         link: { name: "UserLoginFailCrudPage" },
         gallery: true,
         permission: 'userloginfail:manage'
       },
       {
         icon: 'mdi mdi-cog',
-        text:'Ajustes',
+        text:'setting.menu',
         link: { name: "SettingPage" },
         gallery: true,
         permission: 'setting:manage'
@@ -67,14 +67,14 @@ const menu: MenuItem[] = [
 
       {
         icon: 'mdi-view-dashboard-edit',
-        text:'DashboardCrudPage',
+        text:'dashboard.menu',
         link: { name: "DashboardCrudPage" },
         gallery: true,
         permission: 'dashboard:manage'
       },
       {
         icon: 'mdi-police-badge',
-        text:'AuditCrudPage',
+        text:'audit.menu',
         link: { name: "AuditCrudPage" },
         gallery: true,
         permission: 'audit:manage'
@@ -83,7 +83,7 @@ const menu: MenuItem[] = [
   },
   {
     icon: 'mdi-information-box',
-    text:'INFO',
+    text:'info',
     gallery: true,
     auth: false,
     children: [

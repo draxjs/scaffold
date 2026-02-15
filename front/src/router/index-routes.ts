@@ -1,18 +1,13 @@
 import {createRouter, createWebHistory} from 'vue-router'
 // @ts-ignore
 import {setupLayouts} from 'virtual:generated-layouts'
-import iroutes from './routes'
-import {IdentityRoutes} from "@drax/identity-vue";
-import {SettingRoutes} from "@drax/settings-vue";
-import {DashboardCrudRoute} from "@drax/dashboard-vue";
-import {AuditRoutes} from "@drax/audit-vue";
+import modulesRoutes from './modules-routes'
+import draxRoutes from './drax-routes'
+
 
 const routes = setupLayouts([
-  ...iroutes,
-  ...IdentityRoutes,
-  ...SettingRoutes,
-  ...DashboardCrudRoute,
-  ...AuditRoutes
+  ...modulesRoutes,
+  ...draxRoutes
 ])
 
 const router = createRouter({

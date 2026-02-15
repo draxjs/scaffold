@@ -3,24 +3,12 @@ import {CommonI18nMessages } from "@drax/common-front"
 import {AuditI18nMessages } from "@drax/audit-front"
 import {DashboardI18nMessages } from "@drax/dashboard-front"
 import {SettingI18nMessages } from "@drax/settings-front"
+
 import merge from 'deepmerge'
 import {LocaleMessages} from "vue-i18n";
 
-const mainMsg = {
-  en: {
-    main: {
-      home: 'Home',
-    }
-  },
-  es: {
-    main: {
-      home: 'Principal',
-    }
-  }
-}
 
-const messages = merge.all([
-  mainMsg,
+const draxI18n = merge.all([
   CommonI18nMessages,
   IdentityI18nMessages,
   AuditI18nMessages,
@@ -28,4 +16,7 @@ const messages = merge.all([
   SettingI18nMessages
 ]) as LocaleMessages<never>
 
-export default messages
+export default draxI18n
+export {
+  draxI18n
+}
