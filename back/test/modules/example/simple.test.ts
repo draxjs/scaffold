@@ -1,6 +1,6 @@
 import {describe, test, expect} from "vitest"
 
-describe("Base Test", () => {
+describe("Simple Example Test", () => {
 
     test('Simple test', async () => {
 

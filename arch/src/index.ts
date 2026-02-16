@@ -1,8 +1,11 @@
-import {ArchGenerator} from '@drax/arch';
+import { ArchGenerator } from '@drax/arch';
 
 //Import schemas
+import NotificationSchema from './schemas/base/NotificationSchema.js';
 
-const schemas = [];
+const schemas = [
+    NotificationSchema
+];
 
 const generator = new ArchGenerator(schemas);
 generator.build()

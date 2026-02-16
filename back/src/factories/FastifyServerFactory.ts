@@ -17,6 +17,7 @@ import {AuditRoutes} from "@drax/audit-back";
 //Local modules routes
 import {GoogleFastifyRoutes} from "../modules/google/routes/GoogleRoutes.js"
 import {HealthRoutes} from "../modules/base/routes/HealthRoutes.js"
+import {NotificationFastifyRoutes} from "../modules/base/routes/NotificationRoutes.js"
 
 function FastifyServerFactory(rootDir:string) {
     const server = new FastifyServer(rootDir);
@@ -44,6 +45,7 @@ function FastifyServerFactory(rootDir:string) {
     //LOCAL MODULES ROUTES
     server.fastifyRegister(GoogleFastifyRoutes)
     server.fastifyRegister(HealthRoutes)
+    server.fastifyRegister(NotificationFastifyRoutes)
 
 
     return server

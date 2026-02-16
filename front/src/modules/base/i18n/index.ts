@@ -1,8 +1,9 @@
+
 import merge from "deepmerge";
-import {homeI18n} from "./home-i18n"
+import NotificationMessages from "./Notification-i18n"
 
 const baseI18n = merge.all([
-  homeI18n
+    NotificationMessages
 ])
 
 export default baseI18n

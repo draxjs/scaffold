@@ -1,14 +1,15 @@
 import {createRouter, createWebHistory} from 'vue-router'
-// @ts-ignore
+
 import {setupLayouts} from 'virtual:generated-layouts'
-import modulesRoutes from './modules-routes'
 import draxRoutes from './drax-routes'
+import modulesRoutes from './modules-routes'
 
 
 const routes = setupLayouts([
-  ...modulesRoutes,
-  ...draxRoutes
+  ...draxRoutes,
+  ...modulesRoutes
 ])
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),

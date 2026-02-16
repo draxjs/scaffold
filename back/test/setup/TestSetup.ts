@@ -1,4 +1,4 @@
-import Fastify, {FastifyInstance} from "fastify";
+import Fastify, {FastifyInstance, FastifyPluginAsync} from "fastify";
 import {LoadCommonConfigFromEnv} from "@drax/common-back";
 import {
     LoadIdentityConfigFromEnv,
@@ -11,19 +11,35 @@ import {
     UserPermissions, RolePermissions, TenantPermissions, UserApiKeyPermissions,
     LoadPermissions
 } from "@drax/identity-back";
-import rootUserData from "./data/root-user";
+
 import adminRoleData from "./data/admin-role";
+import restrictedRoleData from "./data/restricted-role";
+
+import rootUserData from "./data/root-user";
+import basicUserData from "./data/basic-user";
+
 import {IUser, IRole} from "@drax/identity-share";
 import MongoInMemory from "./MongoInMemory";
+
+interface ITestSetupInput{
+    routes?: FastifyPluginAsync[]
+    permissions?: object[]
+}
 
 class TestSetup {
 
     private _fastifyInstance: FastifyInstance;
     private _mongoInMemory: MongoInMemory;
     private _rootUser: IUser;
+    private _basicUser: IUser;
     private _adminRole: IRole;
+    private _restrictedRole: IRole;
+    private _customRoutes: FastifyPluginAsync[]= [];
+    private _customPermissions: object[]= [];
 
-    constructor() {
+    constructor(input?: ITestSetupInput) {
+        this._customRoutes = input?.routes ?? [];
+        this._customPermissions = input?.permissions ?? [];
     }
 
     async setup() {
@@ -33,6 +49,7 @@ class TestSetup {
         this.setupFastifyInstance();
         await this.setupMongoInMemoryAndConnect();
         await this.setupRootUserAndAdminRole();
+        await this.setupBasicUserAndRestrictedRole();
     }
 
     setupEnvironmentVariables() {
@@ -53,10 +70,19 @@ class TestSetup {
             ...Object.values(RolePermissions),
             ...Object.values(TenantPermissions),
             ...Object.values(UserApiKeyPermissions),
+            ...this.getCustomPermissions()
         ]
 
         //Load All Permissions
         LoadPermissions(permissions)
+    }
+
+    getCustomPermissions() {
+        const customPermissions = []
+        for(const permission of this._customPermissions){
+            customPermissions.push(...Object.values(permission))
+        }
+        return customPermissions
     }
 
     setupFastifyInstance() {
@@ -69,6 +95,13 @@ class TestSetup {
         this._fastifyInstance.register(RoleRoutes)
         this._fastifyInstance.register(TenantRoutes)
         this._fastifyInstance.register(UserApiKeyRoutes)
+        this.registerRoutes(this._customRoutes)
+    }
+
+    registerRoutes(routes:FastifyPluginAsync[]){
+        for(const route of routes){
+            this._fastifyInstance.register(route)
+        }
     }
 
     async setupMongoInMemoryAndConnect() {
@@ -81,7 +114,32 @@ class TestSetup {
         this._rootUser = await CreateUserIfNotExist({...rootUserData})
     }
 
-    async login(username: string= rootUserData.username, password: string= rootUserData.password): Promise<{accessToken: string}> {
+    async setupBasicUserAndRestrictedRole() {
+        this._restrictedRole = await CreateOrUpdateRole({...restrictedRoleData})
+        this._basicUser = await CreateUserIfNotExist({...basicUserData})
+    }
+
+    addRoutes(routes){
+        this._fastifyInstance.register(routes)
+    }
+
+    addPermissions(permissions: object){
+        LoadPermissions( [...Object.values(permissions)])
+    }
+
+    async dropCollections() {
+        await this._mongoInMemory.dropCollections()
+    }
+
+    async dropCollection(collectionName: string) {
+        await this._mongoInMemory.dropCollection(collectionName)
+    }
+
+    async dropAndClose() {
+        await this._mongoInMemory.dropAndClose()
+    }
+
+    async login(username: string, password: string): Promise<{accessToken: string}> {
 
         const resp = await this._fastifyInstance.inject({
             method: 'POST',
@@ -97,6 +155,46 @@ class TestSetup {
             throw new Error(`Failed to login. Status Code:  ${resp.statusCode} body:  ${resp.body}`)
         }
 
+    }
+
+    async rootUserLogin(): Promise<{accessToken: string}> {
+
+        const resp = await this._fastifyInstance.inject({
+            method: 'POST',
+            url: '/api/auth/login',
+            payload: {
+                username: rootUserData.username,
+                password: rootUserData.password
+            }
+        });
+
+        let body = resp.json()
+
+        if(resp.statusCode === 200 && body.accessToken){
+            return {accessToken: body.accessToken}
+        }else{
+            throw new Error(`Failed to login. Status Code:  ${resp.statusCode} body:  ${resp.body}`)
+        }
+    }
+
+    async basicUserLogin(): Promise<{accessToken: string}> {
+
+        const resp = await this._fastifyInstance.inject({
+            method: 'POST',
+            url: '/api/auth/login',
+            payload: {
+                username: basicUserData.username,
+                password: basicUserData.password
+            }
+        });
+
+        let body = resp.json()
+
+        if(resp.statusCode === 200 && body.accessToken){
+            return {accessToken: body.accessToken}
+        }else{
+            throw new Error(`Failed to login. Status Code:  ${resp.statusCode} body:  ${resp.body}`)
+        }
     }
 
     async me(accessToken:string): Promise<IUser> {
@@ -122,16 +220,32 @@ class TestSetup {
         return {...adminRoleData};
     }
 
+    get restrictedRoleData() {
+        return {...restrictedRoleData};
+    }
+
     get rootUserData() {
         return {...rootUserData};
+    }
+
+    get basicUserData() {
+        return {...basicUserData};
+    }
+
+    get adminRole() {
+        return this._adminRole;
+    }
+
+    get restrictedRole() {
+        return this._restrictedRole;
     }
 
     get rootUser() {
         return this._rootUser;
     }
 
-    get adminRole() {
-        return this._adminRole;
+    get basicUser() {
+        return this._basicUser;
     }
 
     get fastifyInstance() {

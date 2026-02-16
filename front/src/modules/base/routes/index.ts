@@ -1,7 +1,9 @@
-import {baseRoutes} from "./base-routes";
+import NotificationCrudRoute from "./NotificationCrudRoute"
+import BaseRoutes from "./base-routes"
 
-const routes = [
-  ...baseRoutes
+export const routes = [
+  ...BaseRoutes,
+  ...NotificationCrudRoute
 ]
 
 export default routes

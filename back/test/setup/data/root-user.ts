@@ -1,5 +1,5 @@
 
-const user = {
+const rootUser = {
   active: true,
   groups: [],
   name: "Root",
@@ -10,4 +10,5 @@ const user = {
   role: "Admin"
 };
 
-export default user
+export default rootUser
+export {rootUser}

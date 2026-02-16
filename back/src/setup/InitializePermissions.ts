@@ -12,7 +12,8 @@ import {SettingPermissions} from "@drax/settings-back";
 import {DashboardPermissions} from "@drax/dashboard-back";
 import {AuditPermissions} from "@drax/audit-back";
 
-import {BasePermissions} from "../modules/base/permissions/BasePermissions";
+import {BasePermissions} from "../modules/base/permissions/BasePermissions.js";
+import {NotificationPermissions} from "../modules/base/permissions/NotificationPermissions.js";
 
 
 function InitializePermissions() {
@@ -32,6 +33,7 @@ function InitializePermissions() {
 
         //Local modules permissions
         ...Object.values(BasePermissions),
+        ...Object.values(NotificationPermissions),
 
     ]
 
