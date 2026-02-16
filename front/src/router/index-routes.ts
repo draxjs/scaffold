@@ -1,5 +1,7 @@
 import {createRouter, createWebHistory} from 'vue-router'
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
 import {setupLayouts} from 'virtual:generated-layouts'
 import draxRoutes from './drax-routes'
 import modulesRoutes from './modules-routes'
