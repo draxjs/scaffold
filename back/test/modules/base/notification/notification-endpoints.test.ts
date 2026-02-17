@@ -1,8 +1,8 @@
-import {describe, it, beforeAll, afterAll, expect} from "vitest"
+import { describe, it, beforeAll, afterAll, expect } from "vitest"
 import NotificationRoutes from "../../../../src/modules/base/routes/NotificationRoutes";
 import NotificationPermissions from "../../../../src/modules/base/permissions/NotificationPermissions";
 import TestSetup from "../../../setup/TestSetup";
-import type {INotificationBase} from "../../../../src/modules/base/interfaces/INotification";
+import type { INotificationBase } from "../../../../src/modules/base/interfaces/INotification";
 
 
 describe("Notification Endpoints Test", function () {
@@ -23,7 +23,7 @@ describe("Notification Endpoints Test", function () {
 
     it("should create a new notification and find by id", async () => {
 
-        const {accessToken} = await testSetup.rootUserLogin()
+        const { accessToken } = await testSetup.rootUserLogin()
         expect(accessToken).toBeTruthy()
         await testSetup.dropCollection('Notification')
 
@@ -32,7 +32,7 @@ describe("Notification Endpoints Test", function () {
             message: "This is a test notification message",
             type: "info",
             status: "unread",
-            metadata: {best: 'AI', worst: 'OU'},
+            metadata: { best: 'AI', worst: 'OU' },
             user: testSetup.rootUser._id
         }
 
@@ -40,7 +40,7 @@ describe("Notification Endpoints Test", function () {
             method: 'POST',
             url: '/api/notifications',
             payload: newNotification,
-            headers: {Authorization: `Bearer ${accessToken}`}
+            headers: { Authorization: `Bearer ${accessToken}` }
         });
 
         const notification = await resp.json();
@@ -54,7 +54,7 @@ describe("Notification Endpoints Test", function () {
         const getResp = await testSetup.fastifyInstance.inject({
             method: 'GET',
             url: '/api/notifications/' + notification._id,
-            headers: {Authorization: `Bearer ${accessToken}`}
+            headers: { Authorization: `Bearer ${accessToken}` }
         });
 
         const getNotification = await getResp.json();
@@ -64,7 +64,7 @@ describe("Notification Endpoints Test", function () {
 
     it("should create and update a notification and finally find by id", async () => {
 
-        const {accessToken} = await testSetup.rootUserLogin()
+        const { accessToken } = await testSetup.rootUserLogin()
         expect(accessToken).toBeTruthy()
         await testSetup.dropCollection('Notification')
 
@@ -80,7 +80,7 @@ describe("Notification Endpoints Test", function () {
             method: 'POST',
             url: '/api/notifications',
             payload: newNotification,
-            headers: {Authorization: `Bearer ${accessToken}`}
+            headers: { Authorization: `Bearer ${accessToken}` }
         });
 
         const notification = await resp.json();
@@ -98,14 +98,14 @@ describe("Notification Endpoints Test", function () {
             user: testSetup.rootUser._id.toString()
         }
 
-        console.log("updateData",updateData)
+        console.log("updateData", updateData)
 
         // Send update request
         const updateResp = await testSetup.fastifyInstance.inject({
             method: 'PUT',
             url: `/api/notifications/${notification._id}`,
             payload: updateData,
-            headers: {Authorization: `Bearer ${accessToken}`}
+            headers: { Authorization: `Bearer ${accessToken}` }
         })
 
         // Verify update response
@@ -117,7 +117,7 @@ describe("Notification Endpoints Test", function () {
         const verifyResp = await testSetup.fastifyInstance.inject({
             method: 'GET',
             url: `/api/notifications/${updatedNotification._id}`,
-            headers: {Authorization: `Bearer ${accessToken}`}
+            headers: { Authorization: `Bearer ${accessToken}` }
         })
 
         const verifiedNotification = await verifyResp.json()
@@ -128,7 +128,7 @@ describe("Notification Endpoints Test", function () {
 
     it("should create and update partial a notification and finally find by id", async () => {
 
-        const {accessToken} = await testSetup.rootUserLogin()
+        const { accessToken } = await testSetup.rootUserLogin()
         expect(accessToken).toBeTruthy()
         await testSetup.dropCollection('Notification')
 
@@ -144,7 +144,7 @@ describe("Notification Endpoints Test", function () {
             method: 'POST',
             url: '/api/notifications',
             payload: newNotification,
-            headers: {Authorization: `Bearer ${accessToken}`}
+            headers: { Authorization: `Bearer ${accessToken}` }
         });
 
         const notification = await resp.json();
@@ -158,14 +158,14 @@ describe("Notification Endpoints Test", function () {
             title: "Test Notification updated",
         }
 
-        console.log("updateData",updateData)
+        console.log("updateData", updateData)
 
         // Send update request
         const updateResp = await testSetup.fastifyInstance.inject({
             method: 'PATCH',
             url: `/api/notifications/${notification._id}`,
             payload: updateData,
-            headers: {Authorization: `Bearer ${accessToken}`}
+            headers: { Authorization: `Bearer ${accessToken}` }
         })
 
         // Verify update response
@@ -177,7 +177,7 @@ describe("Notification Endpoints Test", function () {
         const verifyResp = await testSetup.fastifyInstance.inject({
             method: 'GET',
             url: `/api/notifications/${updatedNotification._id}`,
-            headers: {Authorization: `Bearer ${accessToken}`}
+            headers: { Authorization: `Bearer ${accessToken}` }
         })
 
         const verifiedNotification = await verifyResp.json()
@@ -187,7 +187,7 @@ describe("Notification Endpoints Test", function () {
 
     it("should create and delete a notification", async () => {
 
-        const {accessToken} = await testSetup.rootUserLogin()
+        const { accessToken } = await testSetup.rootUserLogin()
         expect(accessToken).toBeTruthy()
         await testSetup.dropCollection('Notification')
 
@@ -204,7 +204,7 @@ describe("Notification Endpoints Test", function () {
             method: 'POST',
             url: '/api/notifications',
             payload: newNotification,
-            headers: {Authorization: `Bearer ${accessToken}`}
+            headers: { Authorization: `Bearer ${accessToken}` }
         });
 
         const createdNotification = await createResp.json();
@@ -215,7 +215,7 @@ describe("Notification Endpoints Test", function () {
         const deleteResp = await testSetup.fastifyInstance.inject({
             method: 'DELETE',
             url: `/api/notifications/${notificationId}`,
-            headers: {Authorization: `Bearer ${accessToken}`}
+            headers: { Authorization: `Bearer ${accessToken}` }
         });
 
         // Verify delete response
@@ -227,7 +227,7 @@ describe("Notification Endpoints Test", function () {
         const verifyResp = await testSetup.fastifyInstance.inject({
             method: 'GET',
             url: `/api/notifications/${notificationId}`,
-            headers: {Authorization: `Bearer ${accessToken}`}
+            headers: { Authorization: `Bearer ${accessToken}` }
         });
 
         // Should return 404 or empty response
@@ -236,7 +236,7 @@ describe("Notification Endpoints Test", function () {
 
     it("Should create and paginate notifications", async () => {
 
-        const {accessToken} = await testSetup.rootUserLogin()
+        const { accessToken } = await testSetup.rootUserLogin()
         expect(accessToken).toBeTruthy()
 
         await testSetup.dropCollection('Notification')
@@ -264,14 +264,14 @@ describe("Notification Endpoints Test", function () {
                 method: 'POST',
                 url: '/api/notifications',
                 payload: data,
-                headers: {Authorization: `Bearer ${accessToken}`}
+                headers: { Authorization: `Bearer ${accessToken}` }
             });
         }
 
         const resp = await testSetup.fastifyInstance.inject({
             method: 'GET',
             url: '/api/notifications',
-            headers: {Authorization: `Bearer ${accessToken}`}
+            headers: { Authorization: `Bearer ${accessToken}` }
         })
 
         const result = await resp.json()
@@ -286,7 +286,7 @@ describe("Notification Endpoints Test", function () {
 
 
     it("should create and search for notifications ", async () => {
-        const {accessToken} = await testSetup.rootUserLogin()
+        const { accessToken } = await testSetup.rootUserLogin()
         expect(accessToken).toBeTruthy()
         await testSetup.dropCollection('Notification')
 
@@ -321,7 +321,7 @@ describe("Notification Endpoints Test", function () {
                 method: 'POST',
                 url: '/api/notifications',
                 payload: data,
-                headers: {Authorization: `Bearer ${accessToken}`}
+                headers: { Authorization: `Bearer ${accessToken}` }
             });
         }
 
@@ -329,7 +329,7 @@ describe("Notification Endpoints Test", function () {
         const searchResp = await testSetup.fastifyInstance.inject({
             method: 'GET',
             url: '/api/notifications/search?search=Test',
-            headers: {Authorization: `Bearer ${accessToken}`}
+            headers: { Authorization: `Bearer ${accessToken}` }
         });
 
         const searchResult = await searchResp.json();
@@ -342,7 +342,7 @@ describe("Notification Endpoints Test", function () {
     })
 
     it("should create and find notifications with filters", async () => {
-        const {accessToken} = await testSetup.rootUserLogin()
+        const { accessToken } = await testSetup.rootUserLogin()
         expect(accessToken).toBeTruthy()
         await testSetup.dropCollection('Notification')
 
@@ -371,7 +371,7 @@ describe("Notification Endpoints Test", function () {
                 method: 'POST',
                 url: '/api/notifications',
                 payload: data,
-                headers: {Authorization: `Bearer ${accessToken}`}
+                headers: { Authorization: `Bearer ${accessToken}` }
             });
         }
 
@@ -379,7 +379,7 @@ describe("Notification Endpoints Test", function () {
         const findByResp = await testSetup.fastifyInstance.inject({
             method: 'GET',
             url: '/api/notifications/find?filters=type;eq;warning',
-            headers: {Authorization: `Bearer ${accessToken}`}
+            headers: { Authorization: `Bearer ${accessToken}` }
         });
 
         const findByResult = await findByResp.json();
@@ -390,7 +390,7 @@ describe("Notification Endpoints Test", function () {
     })
 
     it("should create and groupBy for notifications ", async () => {
-        const {accessToken} = await testSetup.rootUserLogin()
+        const { accessToken } = await testSetup.rootUserLogin()
         expect(accessToken).toBeTruthy()
         await testSetup.dropCollection('Notification')
 
@@ -425,7 +425,7 @@ describe("Notification Endpoints Test", function () {
                 method: 'POST',
                 url: '/api/notifications',
                 payload: data,
-                headers: {Authorization: `Bearer ${accessToken}`}
+                headers: { Authorization: `Bearer ${accessToken}` }
             });
         }
 
@@ -433,7 +433,7 @@ describe("Notification Endpoints Test", function () {
         const groupResp = await testSetup.fastifyInstance.inject({
             method: 'GET',
             url: '/api/notifications/group-by?fields=type,status',
-            headers: {Authorization: `Bearer ${accessToken}`}
+            headers: { Authorization: `Bearer ${accessToken}` }
         });
 
         const groupResult = await groupResp.json();
@@ -448,7 +448,7 @@ describe("Notification Endpoints Test", function () {
     })
 
     it("should handle error responses correctly when notification is not found", async () => {
-        const {accessToken} = await testSetup.rootUserLogin()
+        const { accessToken } = await testSetup.rootUserLogin()
         expect(accessToken).toBeTruthy()
 
         // Try to fetch a non-existent notification
@@ -457,7 +457,7 @@ describe("Notification Endpoints Test", function () {
         const resp = await testSetup.fastifyInstance.inject({
             method: 'GET',
             url: `/api/notifications/${nonExistentId}`,
-            headers: {Authorization: `Bearer ${accessToken}`}
+            headers: { Authorization: `Bearer ${accessToken}` }
         });
 
         // Verify response status code should be 404 Not Found
@@ -469,5 +469,182 @@ describe("Notification Endpoints Test", function () {
 
     });
 
+    describe("Unhappy Path - Authentication", () => {
+        it("should return 401 when accessing GET /api/notifications without token", async () => {
+            const resp = await testSetup.fastifyInstance.inject({
+                method: 'GET',
+                url: '/api/notifications'
+            });
+            expect(resp.statusCode).toBe(401);
+        });
 
-})
+        it("should return 401 when accessing POST /api/notifications without token", async () => {
+            const resp = await testSetup.fastifyInstance.inject({
+                method: 'POST',
+                url: '/api/notifications',
+                payload: {}
+            });
+            expect(resp.statusCode).toBe(401);
+        });
+    });
+
+    describe("Unhappy Path - Authorization", () => {
+        it("should return 403 when creating notification with basic user (insufficient permissions)", async () => {
+            const { accessToken } = await testSetup.basicUserLogin();
+            expect(accessToken).toBeTruthy();
+
+            const newNotification: INotificationBase = {
+                title: "Test Forbidden",
+                message: "This should fail",
+                type: "info",
+                status: "unread",
+                user: testSetup.basicUser._id
+            };
+
+            const resp = await testSetup.fastifyInstance.inject({
+                method: 'POST',
+                url: '/api/notifications',
+                payload: newNotification,
+                headers: { Authorization: `Bearer ${accessToken}` }
+            });
+
+            expect(resp.statusCode).toBe(403);
+        });
+
+        it("should return 403 when deleting notification with basic user", async () => {
+            const { accessToken: rootToken } = await testSetup.rootUserLogin();
+            const { accessToken: basicToken } = await testSetup.basicUserLogin();
+
+            // Create a notification first as root
+            const createResp = await testSetup.fastifyInstance.inject({
+                method: 'POST',
+                url: '/api/notifications',
+                payload: {
+                    title: "To be deleted",
+                    message: "Msg",
+                    type: "info",
+                    status: "unread",
+                    user: testSetup.rootUser._id
+                },
+                headers: { Authorization: `Bearer ${rootToken}` }
+            });
+            const notification = await createResp.json();
+
+            // Try to delete as basic user
+            const deleteResp = await testSetup.fastifyInstance.inject({
+                method: 'DELETE',
+                url: `/api/notifications/${notification._id}`,
+                headers: { Authorization: `Bearer ${basicToken}` }
+            });
+
+            expect(deleteResp.statusCode).toBe(403);
+        });
+    });
+
+    describe("Unhappy Path - Validation", () => {
+        it("should return 422 when creating notification with missing mandatory fields", async () => {
+            const { accessToken } = await testSetup.rootUserLogin();
+
+            const resp = await testSetup.fastifyInstance.inject({
+                method: 'POST',
+                url: '/api/notifications',
+                payload: {},
+                headers: { Authorization: `Bearer ${accessToken}` }
+            });
+
+            expect(resp.statusCode).toBe(422);
+            const body = await resp.json();
+            expect(body.error).toBeDefined();
+        });
+
+        it("should return 422 when creating notification with invalid type", async () => {
+            const { accessToken } = await testSetup.rootUserLogin();
+
+            const invalidNotification = {
+                title: "Invalid Type",
+                message: "Msg",
+                type: "invalid-type", // Not in enum
+                status: "unread",
+                user: testSetup.rootUser._id
+            };
+
+            const resp = await testSetup.fastifyInstance.inject({
+                method: 'POST',
+                url: '/api/notifications',
+                payload: invalidNotification,
+                headers: { Authorization: `Bearer ${accessToken}` }
+            });
+
+            expect(resp.statusCode).toBe(422);
+        });
+
+        it("should return 422 when creating notification with missing title", async () => {
+            const { accessToken } = await testSetup.rootUserLogin();
+
+            const invalidNotification = {
+                // title missing
+                message: "Msg",
+                type: "info",
+                status: "unread",
+                user: testSetup.rootUser._id
+            };
+
+            const resp = await testSetup.fastifyInstance.inject({
+                method: 'POST',
+                url: '/api/notifications',
+                payload: invalidNotification,
+                headers: { Authorization: `Bearer ${accessToken}` }
+            });
+
+            expect(resp.statusCode).toBe(422);
+        });
+    });
+
+    describe("Unhappy Path - Edge Cases", () => {
+        it("should return 404 when updating non-existent notification", async () => {
+            const { accessToken } = await testSetup.rootUserLogin();
+            const nonExistentId = "123456789012345678901234";
+
+            const resp = await testSetup.fastifyInstance.inject({
+                method: 'PUT',
+                url: `/api/notifications/${nonExistentId}`,
+                payload: {
+                    title: "Updated",
+                    message: "Msg",
+                    type: "info",
+                    status: "unread",
+                    user: testSetup.rootUser._id
+                },
+                headers: { Authorization: `Bearer ${accessToken}` }
+            });
+
+            expect(resp.statusCode).toBe(404);
+        });
+
+        it("should return 404 when deleting non-existent notification", async () => {
+            const { accessToken } = await testSetup.rootUserLogin();
+            const nonExistentId = "123456789012345678901234";
+
+            const resp = await testSetup.fastifyInstance.inject({
+                method: 'DELETE',
+                url: `/api/notifications/${nonExistentId}`,
+                headers: { Authorization: `Bearer ${accessToken}` }
+            });
+
+            expect(resp.statusCode).toBe(404);
+        });
+
+        it("should return 400 when providing invalid ID format for GET", async () => {
+            const { accessToken } = await testSetup.rootUserLogin();
+
+            const resp = await testSetup.fastifyInstance.inject({
+                method: 'GET',
+                url: '/api/notifications/invalid-id-format',
+                headers: { Authorization: `Bearer ${accessToken}` }
+            });
+
+            expect(resp.statusCode).toBe(400);
+        });
+    });
+
+});
