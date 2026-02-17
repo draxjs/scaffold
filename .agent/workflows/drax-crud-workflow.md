@@ -46,5 +46,15 @@ This workflow guides you through the process of creating a new CRUD entity in th
     *Verify that files are copied to `back/src/modules` and `front/src/modules`.*
 
 
-7.  **Generate Backend Tests**
+7.  **Setup permissions**
+    Add entity permissions to back/src/setup/InitializePermissions
+
+
+8.  **Generate Backend Tests**
     Use the `drax-crud-test-endpoints` skill to generate Vitest tests for the backend CRUD operations.
+
+9.  **No generate Frontend Tests**
+    Avoid frontend Test
+
+10.  **Add entity menu**
+    Add entity menu in front/src/menu/index.ts
