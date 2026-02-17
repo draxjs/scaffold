@@ -8,6 +8,7 @@ import SidebarMenu from "../components/SidebarMenu/SidebarMenu.vue";
 import AnimatedBackground from "../components/AnimatedBackground/AnimatedBackground.vue";
 import {useRouter} from "vue-router";
 import { useDarkMode } from '../composables/useDarkMode.js'
+import NotificationButton from "../modules/base/components/NotificationButton.vue"
 
 const {loadDarkMode} = useDarkMode()
 
@@ -45,7 +46,7 @@ const appName = computed(() => {
       <v-spacer></v-spacer>
       <slot name="toolbar-right"></slot>
       <dark-mode></dark-mode>
-
+      <notification-button class="mr-2"></notification-button>
       <identity-profile-avatar class="cursor-pointer" @click="profileDrawer = !profileDrawer"></identity-profile-avatar>
     </v-app-bar>
 

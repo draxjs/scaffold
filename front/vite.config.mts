@@ -4,7 +4,6 @@ import Components from 'unplugin-vue-components/vite'
 import Fonts from 'unplugin-fonts/vite'
 import Layouts from 'vite-plugin-vue-layouts-next'
 import Vue from '@vitejs/plugin-vue'
-import VueRouter from 'unplugin-vue-router/vite'
 import Vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
 
 // Utilities
@@ -24,9 +23,6 @@ export default defineConfig({
     outDir: '../out/public',
   },
   plugins: [
-    VueRouter({
-      dts: 'src/typed-router.d.ts',
-    }),
     Layouts(),
     AutoImport({
       imports: [
@@ -78,12 +74,12 @@ export default defineConfig({
       '.vue',
     ],
   },
-  css: {
-    preprocessorOptions: {
-      sass: {
-        api: 'modern',
-      },
-    },
-  },
+  // css: {
+  //   preprocessorOptions: {
+  //     sass: {
+  //       api: 'modern',
+  //     },
+  //   },
+  // },
 
 })

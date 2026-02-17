@@ -2,6 +2,7 @@ import HomePage from '@/modules/base/pages/home/index.vue'
 import LoginPage from "@/modules/base/pages/user/LoginPage.vue";
 import PoliticaPrivacidad from "@/modules/base/pages/info/PoliticaPrivacidad.vue";
 import CondicionesServicio from "@/modules/base/pages/info/CondicionesServicio.vue";
+import NotificationTestPage from "@/modules/base/pages/notification/NotificationTestPage.vue";
 
 const baseRoutes = [
   {
@@ -28,7 +29,15 @@ const baseRoutes = [
       auth: false,
     }
   },
-
+  {
+    name: 'NotificationTestPage',
+    path: '/notification/test',
+    component: NotificationTestPage,
+    meta: {
+      auth: true,
+      permission: 'notification:manage'
+    }
+  },
   {
     name: 'PoliticaPrivacidad',
     path: '/politica-privacidad',

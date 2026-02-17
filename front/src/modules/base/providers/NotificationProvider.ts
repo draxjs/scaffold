@@ -17,6 +17,12 @@ class NotificationProvider extends AbstractCrudRestProvider<INotification, INoti
     return NotificationProvider.singleton
   }
 
+   async updatePartial(id: string, data: any): Promise<INotification> {
+        const url = this.basePath + '/' + id
+        const item = await this.httpClient.patch(url, data)
+        return item as INotification
+    }
+
 }
 
 export default NotificationProvider

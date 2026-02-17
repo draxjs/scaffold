@@ -3,7 +3,7 @@ interface INotificationBase {
     title: string
     message: string
     type: string
-    status: string
+    status: string | 'read' | 'unread'
     user: any
     metadata?: Record<string, any>
     readAt?: Date
@@ -16,7 +16,7 @@ interface INotification {
     title: string
     message: string
     type: string
-    status: string
+    status: string | 'read' | 'unread'
     user: any
     metadata?: Record<string, any>
     readAt?: Date

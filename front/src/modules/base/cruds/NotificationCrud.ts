@@ -42,6 +42,7 @@ class NotificationCrud extends EntityCrud implements IEntityCrud {
   get headers(): IEntityCrudHeader[] {
     return [
       {title: 'title', key: 'title', align: 'start'},
+      {title: 'message', key: 'message', align: 'start'},
       {title: 'type', key: 'type', align: 'start'},
       {title: 'status', key: 'status', align: 'start'},
       {title: 'user', key: 'user', align: 'start'}
@@ -110,11 +111,11 @@ class NotificationCrud extends EntityCrud implements IEntityCrud {
   }
 
   get isEditable() {
-    return true
+    return false
   }
 
   get isCreatable() {
-    return true
+    return false
   }
 
   get isDeletable() {
@@ -122,7 +123,7 @@ class NotificationCrud extends EntityCrud implements IEntityCrud {
   }
 
   get isExportable() {
-    return true
+    return false
   }
 
   get exportFormats() {
@@ -134,7 +135,7 @@ class NotificationCrud extends EntityCrud implements IEntityCrud {
   }
 
   get isImportable() {
-    return true
+    return false
   }
 
   get isColumnSelectable() {
