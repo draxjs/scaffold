@@ -45,14 +45,6 @@ This workflow guides you through the process of creating a new CRUD entity in th
     ```
     *Verify that files are copied to `back/src/modules` and `front/src/modules`.*
 
-7.  **Generate Backend Tests**
-    Generate Vitest tests for the backend CRUD operations.
-    ```bash
-    # prompt: "Generate a battery of Vitest tests for the [EntityName] backend CRUD operations in back/src/modules/[module]/[entity] directory. Reference existing tests if available."
-    ```
 
-8.  **Generate Frontend Tests**
-    Generate Vitest tests for the frontend CRUD operations.
-    ```bash
-    # prompt: "Generate a battery of Vitest tests for the [EntityName] frontend CRUD operations in front/src/modules/[module]/[entity] directory using @vue/test-utils and vitest."
-    ```
+7.  **Generate Backend Tests**
+    Use the `drax-crud-test-endpoints` skill to generate Vitest tests for the backend CRUD operations.
