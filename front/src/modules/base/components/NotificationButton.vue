@@ -77,10 +77,7 @@ async function markAsRead(notification: INotification) {
   if (notification.readAt) return
 
   try {
-    await notificationProvider.updatePartial(notification._id, {
-      status: 'read',
-      readAt: new Date()
-    })
+    await notificationProvider.markAsRead(notification._id)
 
     // Update local state
     const index = notifications.value.findIndex(n => n._id === notification._id)

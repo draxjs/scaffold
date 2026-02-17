@@ -9,9 +9,9 @@ class NotificationService extends AbstractService<INotification, INotificationBa
 
     constructor(NotificationRepository: INotificationRepository, baseSchema?: ZodObject<ZodRawShape>, fullSchema?: ZodObject<ZodRawShape>) {
         super(NotificationRepository, baseSchema, fullSchema);
-        
-        this._validateOutput = true
-        
+
+        this._validateOutput = false
+
     }
 
 }

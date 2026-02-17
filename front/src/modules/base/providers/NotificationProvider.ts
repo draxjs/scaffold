@@ -3,13 +3,13 @@ import {AbstractCrudRestProvider} from "@drax/crud-front";
 import type {INotification, INotificationBase} from '../interfaces/INotification'
 
 class NotificationProvider extends AbstractCrudRestProvider<INotification, INotificationBase, INotificationBase> {
-    
+
   static singleton: NotificationProvider
-    
+
   constructor() {
    super('/api/notifications')
   }
-  
+
   static get instance() {
     if(!NotificationProvider.singleton){
       NotificationProvider.singleton = new NotificationProvider()
@@ -17,11 +17,11 @@ class NotificationProvider extends AbstractCrudRestProvider<INotification, INoti
     return NotificationProvider.singleton
   }
 
-   async updatePartial(id: string, data: any): Promise<INotification> {
-        const url = this.basePath + '/' + id
-        const item = await this.httpClient.patch(url, data)
-        return item as INotification
-    }
+  async markAsRead(id: string): Promise<INotification> {
+    const url = this.basePath + '/' + id + '/read-state'
+    const item = await this.httpClient.put(url,null)
+    return item as INotification
+  }
 
 }
 

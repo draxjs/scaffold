@@ -8,17 +8,16 @@ const NotificationBaseSchema = z.object({
     status: z.enum(['unread', 'read']).default('unread'),
     user: z.coerce.string().min(1, 'validation.required'),
     metadata: z.record(z.string(), z.unknown()).optional().nullable(),
-    readAt: z.iso.datetime().nullable().optional()
+    readAt: z.date().optional()
 });
 
 const NotificationSchema = NotificationBaseSchema
     .extend({
         _id: z.coerce.string(),
         user: z.object({_id: z.coerce.string(), username: z.string()}),
-
-        readAt: z.date().nullable().optional(),
+        readAt: z.date().optional(),
         createdAt: z.date(),
-        updatedAt: z.date(),
+        updatedAt: z.date().optional(),
     })
 
 export default NotificationSchema;
