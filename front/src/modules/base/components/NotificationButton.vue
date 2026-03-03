@@ -24,7 +24,7 @@ async function fetchNotifications(page: number = 1) {
   try {
     const result = await notificationProvider.paginate({
       page,
-      limit: 10,
+      limit: 50,
       orderBy: 'createdAt',
       order: 'desc'
     })
