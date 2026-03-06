@@ -11,6 +11,9 @@ This workflow guides you through the process of creating a new CRUD entity in th
 1.  **Generate User Story**
     Use the `drax-crud-user-story` skill to generate an initial user story for your entity in specifications/crud.
     ```bash
+    **MANUAL STEP**: Ask for the redmine ticket number
+    - Use skill redmine-api to get ticket content
+    - Use ticket description as a context of the user story
     # Example: Generate a story for a 'Product' entity in the 'inventory' module
     # prompt: "Generate a user story for a Product entity in the inventory module using the drax-crud-user-story skill."
     ```
@@ -46,15 +49,20 @@ This workflow guides you through the process of creating a new CRUD entity in th
     *Verify that files are copied to `back/src/modules` and `front/src/modules`.*
 
 
-7.  **Setup permissions**
-    Add entity permissions to back/src/setup/InitializePermissions
+7.  **Setup permissions and routes on back**
+    - Add entity permissions to back/src/setup/InitializePermissions.ts
+    - Add entity route to back/src/factories/FastifyServerFactory.ts
+
+8.  **Setup routes and i18n on front**
+    - Add entity frontend routes to front/src/router/modules-routes.ts
+    - Add entity i18n to front/src/i18n/modules-I18n.ts
 
 
-8.  **Generate Backend Tests**
+9.  **Generate Backend Tests**
     Use the `drax-crud-test-endpoints` skill to generate Vitest tests for the backend CRUD operations.
 
-9.  **No generate Frontend Tests**
+10.  **No generate Frontend Tests**
     Avoid frontend Test
 
-10.  **Add entity menu**
+11.  **Add entity menu**
     Add entity menu in front/src/menu/index.ts
