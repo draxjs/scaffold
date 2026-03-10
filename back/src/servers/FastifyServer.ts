@@ -54,6 +54,11 @@ class FastifyServer {
     setupFastifyServer(): void {
         this.fastifyServer = Fastify({
             logger: this.logger(),
+            serializerOpts: {
+                ajv: {
+                    removeAdditional: true,
+                }
+            },
             ajv:{
                 customOptions:{
                     allErrors: true, // Muestra todos los errores de validación
@@ -166,6 +171,7 @@ class FastifyServer {
 
     setupErrorHandler(){
         this.fastifyServer.setErrorHandler((e, request, reply) => {
+            console.error("FastifyServer Error Handler ",e)
             if(
                 e instanceof ValidationError ||
                 e instanceof NotFoundError ||
