@@ -469,7 +469,7 @@ describe("Notification Endpoints Test", function () {
 
     });
 
-    describe("Unhappy Path - Authentication", () => {
+    describe( "Unhappy Path - Authentication", () => {
         it("should return 401 when accessing GET /api/notifications without token", async () => {
             const resp = await testSetup.fastifyInstance.inject({
                 method: 'GET',
