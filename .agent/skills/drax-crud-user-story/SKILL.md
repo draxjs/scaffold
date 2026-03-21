@@ -16,9 +16,9 @@ The story **MUST** follow this structure to be parsed correctly by subsequent to
 ### 1. Header & Story
 ```markdown
 Historia de usuario  
-Como: {actor}  
-Quiero: gestionar {entityName}  
-Para: {businessPurpose}  
+**Como**: {actor}
+**Quiero**: gestionar {entityName}
+**Para**: {businessPurpose}
 ```
 
 ### 2. Attributes Table
@@ -40,27 +40,27 @@ This is the most critical section for code generation.
 ```markdown
 Criterios de aceptación  
 
-Escenario 1: Crear {entityName} exitosamente  
+### Escenario 1: Crear {entityName} exitosamente  
 Dado: que el {actor} se encuentra en la pantalla de gestión de {entityName}  
 Cuando: completa los campos obligatorios con información válida y confirma la operación  
 Entonces: el sistema registra el nuevo {entityName} y muestra un mensaje de confirmación  
 
-Escenario 2: Validación de campos obligatorios  
+### Escenario 2: Validación de campos obligatorios  
 Dado: que el {actor} intenta crear o actualizar un {entityName}  
 Cuando: omite uno o más campos obligatorios o ingresa datos inválidos  
 Entonces: el sistema muestra mensajes de validación claros y no permite continuar  
 
-Escenario 3: Visualizar listado de {entityName}  
+### Escenario 3: Visualizar listado de {entityName}  
 Dado: que existen uno o más {entityName} registrados  
 Cuando: el {actor} accede a la sección correspondiente  
 Entonces: el sistema muestra el listado actualizado con información relevante  
 
-Escenario 4: Editar {entityName}  
+### Escenario 4: Editar {entityName}  
 Dado: que el {actor} selecciona un {entityName} existente  
 Cuando: modifica los datos permitidos y confirma la operación  
 Entonces: el sistema actualiza la información y muestra confirmación  
 
-Escenario 5: Eliminar {entityName}  
+### Escenario 5: Eliminar {entityName}  
 Dado: que el {actor} selecciona un {entityName} existente  
 Cuando: confirma la eliminación  
 Entonces: el sistema elimina el registro y lo remueve del listado  
