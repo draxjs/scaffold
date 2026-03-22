@@ -28,19 +28,23 @@ Esta skill sirve para crear:
 ## Arquitectura esperada
 
 ### Definición del dashboard
-Un dashboard Drax se define con un objeto `IDashboardBase`:
+Un dashboard Drax se define con una function factory que retorna el objeto `IDashboardBase`:
 ```
 typescript
 import type {IDashboardBase} from "@drax/dashboard-share";
 
-const exampleDashboard: IDashboardBase = {
-identifier: "example",
-title: "Example Dashboard",
-cards: []
+function createExampleDashboard(): IDashboardBase {
+
+   return {
+      identifier: "example",
+      title: "Example Dashboard",
+      cards: []
+   }
+
 }
 
-export {exampleDashboard}
-export default exampleDashboard
+export {createExampleDashboard}
+export default createExampleDashboard
 ```
 ### Renderizado del dashboard
 La vista Vue debe usar `DashboardView` desde `@drax/dashboard-vue`:
@@ -50,9 +54,9 @@ vue
 import {ref} from "vue"
 import {DashboardView} from "@drax/dashboard-vue"
 import type {IDashboardBase} from "@drax/dashboard-share"
-import exampleDashboard from "../dashboards/ExampleDashboard"
+import {createExampleDashboard} from "../dashboards/ExampleDashboard"
 
-const dashboard = ref<IDashboardBase>(exampleDashboard)
+const dashboard = ref<IDashboardBase>(createExampleDashboard())
 </script>
 
 <template>
@@ -215,6 +219,16 @@ Cada card debe definir:
 ### Regla
 **Preferir siempre `entityInstance` cuando el CRUD del módulo está disponible**, para evitar dependencia implícita del store global de entidades.
 
+### Regla de inicialización
+Si `entityInstance` apunta a un CRUD singleton que usa Pinia o stores internos, no exportar el dashboard como objeto estático evaluado al importar el módulo.
+
+En ese caso:
+- exportar una función fábrica, por ejemplo `createSomeDashboard(): IDashboardBase`
+- resolver `SomeCrud.instance` dentro de esa función
+- invocar la fábrica dentro de `script setup` del componente Vue
+
+Esto evita errores como `getActivePinia()` al cargar rutas o módulos antes de `app.use(pinia)`.
+
 ### Ejemplo
 ```
 typescript
@@ -357,6 +371,7 @@ Antes de dar por terminado un dashboard, validar:
 - el `layout` es responsive
 - los filtros tienen `field`, `operator`, `value`
 - se usa `entityInstance` si existe el CRUD
+- si `entityInstance` depende de stores, el dashboard se crea con una función fábrica invocada desde `setup`
 - el componente Vue renderiza `DashboardView`
 - los controles de filtro actualizan la misma referencia compartida
 
@@ -368,55 +383,59 @@ typescript
 import type {IDashboardBase} from "@drax/dashboard-share";
 import SomeEntityCrud from "../cruds/SomeEntityCrud";
 
-const someDashboard: IDashboardBase = {
-  identifier: "some-dashboard",
-  title: "Some Dashboard",
-  cards: [
-    {
-      entity: "SomeEntity",
-      entityInstance: SomeEntityCrud.instance,
-      type: "groupBy",
-      title: "Records by Status",
-      filters: [],
-      layout: {
-        cols: 12,
-        sm: 12,
-        md: 6,
-        lg: 6,
-        cardVariant: "outlined",
-        height: 400
+function createSomeDashboard(): IDashboardBase {
+  const someCrud = SomeEntityCrud.instance
+
+  return {
+    identifier: "some-dashboard",
+    title: "Some Dashboard",
+    cards: [
+      {
+        entity: "SomeEntity",
+        entityInstance: someCrud,
+        type: "groupBy",
+        title: "Records by Status",
+        filters: [],
+        layout: {
+          cols: 12,
+          sm: 12,
+          md: 6,
+          lg: 6,
+          cardVariant: "outlined",
+          height: 400
+        },
+        groupBy: {
+          fields: ["status"],
+          dateFormat: "day",
+          render: "pie"
+        }
       },
-      groupBy: {
-        fields: ["status"],
-        dateFormat: "day",
-        render: "pie"
+      {
+        entity: "SomeEntity",
+        entityInstance: someCrud,
+        type: "paginate",
+        title: "Latest Records",
+        filters: [],
+        layout: {
+          cols: 12,
+          sm: 12,
+          md: 6,
+          lg: 6,
+          cardVariant: "outlined",
+          height: 400
+        },
+        paginate: {
+          columns: ["name", "status", "createdAt"],
+          orderBy: "createdAt",
+          order: "desc"
+        }
       }
-    },
-    {
-      entity: "SomeEntity",
-      entityInstance: SomeEntityCrud.instance,
-      type: "paginate",
-      title: "Latest Records",
-      filters: [],
-      layout: {
-        cols: 12,
-        sm: 12,
-        md: 6,
-        lg: 6,
-        cardVariant: "outlined",
-        height: 400
-      },
-      paginate: {
-        columns: ["name", "status", "createdAt"],
-        orderBy: "createdAt",
-        order: "desc"
-      }
-    }
-  ]
+    ]
+  }
 }
 
-export {someDashboard}
-export default someDashboard
+export {createSomeDashboard}
+export default createSomeDashboard
 ```
 ---
 
@@ -427,14 +446,14 @@ vue
 import {ref} from "vue"
 import {DashboardView} from "@drax/dashboard-vue"
 import type {IDashboardBase, IDashboardCard} from "@drax/dashboard-share"
-import someDashboard from "../dashboards/SomeDashboard"
+import createSomeDashboard from "../dashboards/SomeDashboard"
 
 const filters = ref([
   {field: "createdAt", operator: "gte", value: new Date(new Date().getFullYear(), new Date().getMonth(), 1)},
   {field: "createdAt", operator: "lte", value: new Date()},
 ])
 
-const dashboard = ref<IDashboardBase>(someDashboard)
+const dashboard = ref<IDashboardBase>(createSomeDashboard())
 
 dashboard.value.cards?.forEach((card: IDashboardCard) => {
   card.filters = filters.value
@@ -455,6 +474,7 @@ dashboard.value.cards?.forEach((card: IDashboardCard) => {
 - Agrupar cards relacionadas visualmente
 - Mantener títulos de card orientados a negocio
 - Reutilizar filtros globales
+- Crear el dashboard dentro de `setup` si usa `*.instance` que dependa de Pinia
 - No inventar campos que no existan en la entidad
 - No usar `paginate` si la intención es solo resumir
 - No usar `groupBy` si la intención es inspección detallada de registros
@@ -473,6 +493,7 @@ No hacer esto:
 - usar `groupBy.fields` con campos no indexables o irrelevantes sin justificación
 - duplicar filtros distintos en cada card si deben ser globales
 - crear dashboards sin componente Vue de renderización
+- exportar un objeto estático que resuelva `Crud.instance` al importar el módulo
 - usar títulos genéricos como `Card 1`, `Card 2`
 
 ---
@@ -495,5 +516,4 @@ Si el usuario no especifica detalles suficientes, proponer una primera versión 
 - 1 card `groupBy`
 - 1 card `paginate`
 - filtro por `createdAt` si la entidad lo soporta
-
 
