@@ -1,0 +1,35 @@
+type Role {
+    id: ID!
+    name: String
+    readonly: Boolean
+    childRoles: [Role]
+    permissions: [String]
+}
+
+type RolePaginated{
+    total: Int
+    page: Int
+    limit: Int
+    items: [Role]
+}
+
+type Query{
+    paginateRole(options: PaginateOptions): RolePaginated
+    fetchRole: [Role]
+    fetchPermissions: [String]
+    findRoleById(id: ID): Role
+    findRoleByName(name: String!): Role
+}
+
+input RoleInput{
+    name: String
+    permissions: [String]
+    readonly: Boolean
+    childRoles: [ID]
+}
+
+type Mutation{
+    createRole(input: RoleInput): Role
+    updateRole(id: ID!, input: RoleInput): Role
+    deleteRole(id: ID!): Boolean
+}

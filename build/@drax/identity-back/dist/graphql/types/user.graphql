@@ -1,0 +1,72 @@
+type User {
+    id: ID!
+    username: String!
+    name: String
+    email: String
+    role: Role
+    tenant: Tenant
+    phone: String
+    avatar: String
+    active: Boolean
+    createdAt: Date
+    updatedAt: Date
+}
+
+type UserPaginated{
+    total: Int
+    page: Int
+    limit: Int
+    items: [User]
+}
+
+type Query{
+    me: User
+    findUserByUsername(username: String!): User
+    findUserById(id: ID!): User
+    paginateUser(options: PaginateOptions): UserPaginated
+}
+
+input UserCreateInput{
+    name: String
+    username: String!
+    password: String!
+    role: ID
+    tenant: ID
+    email: String!
+    phone: String
+    active: Boolean
+}
+
+input UserUpdateInput{
+    name: String
+    username: String!
+    role: ID
+    tenant: ID
+    email: String!
+    phone: String
+    active: Boolean
+}
+
+type Auth{
+    accessToken: String
+}
+
+input AuthInput{
+    username: String!
+    password: String!
+}
+
+input SwitchTenantInput{
+    tenantId: String!
+}
+
+type Mutation{
+    auth(input: AuthInput): Auth
+    switchTenant(input: SwitchTenantInput): Auth
+    createUser(input: UserCreateInput): User
+    updateUser(id: ID!, input: UserUpdateInput): User
+    deleteUser(id: ID!): Boolean
+    changeOwnPassword(currentPassword:String!, newPassword: String!): Boolean
+    changeUserPassword(userId:ID!, newPassword:String!): Boolean
+    changeAvatar(file: File!): Boolean
+}

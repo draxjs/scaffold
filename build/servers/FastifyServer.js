@@ -1,0 +1,181 @@
+import Fastify from "fastify";
+import fastifyStatic from '@fastify/static';
+import fastifyMultipart from '@fastify/multipart';
+import fastifySwagger from '@fastify/swagger';
+import fastifySwaggerUi from '@fastify/swagger-ui';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { ValidationError, BadRequestError, ForbiddenError, InternalServerError, InvalidIdError, LimitError, MethodNotAllowedError, NotFoundError, SecuritySensitiveError, UnauthorizedError, UploadFileError } from "@drax/common-back";
+import pino from 'pino';
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+class FastifyServer {
+    constructor(rootDir) {
+        this.rootDir = rootDir ? rootDir : path.join(__dirname);
+        this.setupFastifyServer();
+        this.disableValidations();
+        this.setupErrorHandler();
+        this.setupMultipart();
+        this.setupStatusRoute();
+        this.setupWebFiles();
+        this.setupSwagger();
+    }
+    setupFastifyServer() {
+        this.fastifyServer = Fastify({
+            logger: this.logger(),
+            serializerOpts: {
+                ajv: {
+                    removeAdditional: true,
+                }
+            },
+            ajv: {
+                customOptions: {
+                    allErrors: true, // Muestra todos los errores de validación
+                    verbose: true, // Proporciona más contexto
+                }
+            }
+        });
+    }
+    logger() {
+        return {
+            level: 'info',
+            base: undefined,
+            timestamp: pino.stdTimeFunctions.isoTime,
+            formatters: {
+                level: (label) => {
+                    return { level: label };
+                },
+                bindings: () => {
+                    return {};
+                },
+                log(object) {
+                    delete object.msg;
+                    return object;
+                }
+            },
+            serializers: {
+                req: (req) => {
+                    return {
+                        method: req.method,
+                        route: req.url,
+                        ip: req.ip,
+                    };
+                },
+                res: (reply) => {
+                    return {
+                        status_code: reply?.statusCode,
+                        method: reply.request?.method,
+                        route: reply.request?.url,
+                        user: reply?.rbac?.username || null,
+                        tenant: reply?.rbac?.tenantName || null,
+                    };
+                }
+            }
+        };
+    }
+    /*
+     * Deshabilita las validaciones en Fastify para delegar a los servicios el manejo de errores y validaciones
+    */
+    disableValidations() {
+        this.fastifyServer.setValidatorCompiler(() => () => true);
+    }
+    setupSwagger() {
+        this.fastifyServer.register(fastifySwagger, {
+            openapi: {
+                openapi: '3.0.0',
+                info: {
+                    title: 'Drax Swagger',
+                    description: 'Drax swagger API',
+                    version: '1.0.0'
+                },
+                tags: [
+                    { name: 'Auth', description: 'Auth related end-points' },
+                    { name: 'Identity', description: 'Identity, User, Role, Tenant related end-points' },
+                    { name: 'Media', description: 'File Media related end-points' },
+                    { name: 'Settings', description: 'Settings related end-points' },
+                ],
+                components: {
+                    securitySchemes: {
+                        bearerAuth: {
+                            type: 'http',
+                            scheme: 'bearer',
+                            bearerFormat: 'JWT',
+                        },
+                        apiKeyAuth: {
+                            type: 'apiKey',
+                            name: 'x-api-key',
+                            in: 'header'
+                        }
+                    }
+                },
+                security: [
+                    { bearerAuth: [] }, // Opción 1: JWT
+                    { apiKeyAuth: [] }, // Opción 2: API Key
+                ],
+            }
+        });
+        this.fastifyServer.register(fastifySwaggerUi, { routePrefix: '/api/docs' });
+    }
+    setupWebFiles() {
+        this.fastifyServer.register(fastifyStatic, {
+            root: path.join(this.rootDir, 'public'),
+            prefix: '/',
+            index: 'index.html'
+        });
+        this.fastifyServer.setNotFoundHandler(function (request, reply) {
+            reply.sendFile("index.html");
+        });
+    }
+    setupErrorHandler() {
+        this.fastifyServer.setErrorHandler((e, request, reply) => {
+            console.error("FastifyServer Error Handler ", e);
+            if (e instanceof ValidationError ||
+                e instanceof NotFoundError ||
+                e instanceof BadRequestError ||
+                e instanceof UnauthorizedError ||
+                e instanceof ForbiddenError ||
+                e instanceof MethodNotAllowedError ||
+                e instanceof InvalidIdError ||
+                e instanceof SecuritySensitiveError ||
+                e instanceof UploadFileError ||
+                e instanceof LimitError) {
+                reply.status(e.statusCode).send(e.body);
+            }
+            else {
+                const serverError = new InternalServerError();
+                reply.statusCode = serverError.statusCode;
+                reply.status(500).send(serverError.body);
+            }
+        });
+    }
+    get getFileSizeLimit() {
+        const DRAX_MAX_UPLOAD_SIZE = process.env.DRAX_MAX_UPLOAD_SIZE;
+        return DRAX_MAX_UPLOAD_SIZE ? parseInt(DRAX_MAX_UPLOAD_SIZE) + 10000 : 100000000; // 100MB
+    }
+    setupMultipart() {
+        this.fastifyServer.register(fastifyMultipart, {
+            limits: {
+                fileSize: this.getFileSizeLimit,
+            }
+        });
+        //this.fastifyServer.addContentTypeParser('multipart/form-data', {}, (req, payload, done) => done(null))
+    }
+    fastifyDecorateRequest(prop, defaultValue) {
+        this.fastifyServer.decorateRequest(prop, defaultValue);
+    }
+    fastifyHook(hookName, hookFunction) {
+        this.fastifyServer.addHook(hookName, hookFunction);
+    }
+    fastifyRegister(route) {
+        this.fastifyServer.register(route);
+    }
+    setupStatusRoute() {
+        this.fastifyServer.get('/status', async (request, reply) => {
+            return 'Running';
+        });
+    }
+    async start(port, baseUrl = 'http://localhost') {
+        await this.fastifyServer.listen({ port: port, host: '0.0.0.0' });
+        console.log(`🚀 Server ready at ${baseUrl}:${port}`);
+    }
+}
+export default FastifyServer;

@@ -6,6 +6,7 @@
   "scripts": {
     "front": "vite",
     "build": "vue-tsc --noEmit && vite build",
+    "build:local": "vue-tsc --noEmit && vite build --outDir ../build/public",
     "vuetsc": "vue-tsc --noEmit",
     "preview": "vite preview",
     "lint": "eslint . --fix"
