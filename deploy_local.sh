@@ -6,7 +6,7 @@ git checkout .
 git pull
 
 
-echo "DEPLOY: building"
+echo "DEPLOY: copying build to out"
 cp -R build/ out/
 
 
