@@ -7,7 +7,7 @@ git pull
 
 
 echo "DEPLOY: building"
-sh build_local.sh
+copy -R build/ out/
 
 
 echo "DEPLOY: Install production dependencies"
