@@ -6,8 +6,8 @@ git checkout .
 git pull
 
 
-echo "DEPLOY: Building"
-sh build.sh
+echo "DEPLOY: building"
+sh build_local.sh
 
 
 echo "DEPLOY: Install production dependencies"
@@ -18,3 +18,4 @@ cd ..
 
 echo "DEPLOY: START SERVICE"
 sh start.sh
+
