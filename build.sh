@@ -3,6 +3,9 @@ echo "BUILD: START"
 
 node -v
 
+echo "BUILD: Clear out dir"
+rm -R out
+
 echo "BUILD: Backend Start"
 cd back
 npm install
