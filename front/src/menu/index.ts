@@ -86,6 +86,12 @@ const menu: MenuItem[] = [
         gallery: true,
         permission: 'file:manage'
       },
+      {
+        icon: 'mdi-lock-check',
+        text:'Password Policy',
+        link: { name: "PasswordPolicy" },
+        gallery: true,
+      },
     ]
   },
   {

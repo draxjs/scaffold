@@ -1,10 +1,12 @@
 import {DraxConfig, CommonConfig, MongooseConector, LoadCommonConfigFromEnv} from "@drax/common-back";
-import { LoadIdentityConfigFromEnv} from "@drax/identity-back";
+import { LoadIdentityConfigFromEnv, SetProjectPasswordPolicy} from "@drax/identity-back";
 import InitializePermissions from "./InitializePermissions.js";
 import CreateRootUserAndAdminRole from "./CreateRootUserAndAdminRole.js";
 import CreateSystemRoles from "./CreateSystemRoles.js";
 import InitializeSettings from "./InitializeSettings.js";
 import InitializeAudit from "./InitializeAudit.js";
+
+import {projectPasswordPolicy} from "./data/policies/PasswordPolicy.js";
 
 async function SetupDrax(){
 
@@ -21,6 +23,9 @@ async function SetupDrax(){
 
     //Setup Permissions
     InitializePermissions()
+
+    //Set a custom project password policy
+    SetProjectPasswordPolicy(projectPasswordPolicy)
 
     //Setup Audit
     InitializeAudit()
