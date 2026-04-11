@@ -11,6 +11,7 @@ declare module 'vue' {
     DarkMode: typeof import('./components/DarkMode/index.vue')['default']
     Footer: typeof import('./components/Footer/Footer.vue')['default']
     GalleryMenu: typeof import('./components/GalleryMenu/GalleryMenu.vue')['default']
+    GalleryMenuPro: typeof import('./components/GalleryMenuPro/GalleryMenuPro.vue')['default']
     MenuCard: typeof import('./components/MenuCard/MenuCard.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
