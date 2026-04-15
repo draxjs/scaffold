@@ -4,6 +4,7 @@ import {AuditI18nMessages } from "@drax/audit-front"
 import {DashboardI18nMessages } from "@drax/dashboard-front"
 import {SettingI18nMessages } from "@drax/settings-front"
 import {MediaI18nMessages } from "@drax/media-front"
+import {AiI18nMessages } from "@drax/ai-front"
 
 import merge from 'deepmerge'
 import {LocaleMessages} from "vue-i18n";
@@ -15,7 +16,8 @@ const draxI18n = merge.all([
   AuditI18nMessages,
   DashboardI18nMessages,
   SettingI18nMessages,
-  MediaI18nMessages
+  MediaI18nMessages,
+  AiI18nMessages
 ]) as LocaleMessages<never>
 
 export default draxI18n

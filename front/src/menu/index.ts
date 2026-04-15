@@ -87,6 +87,13 @@ const menu: MenuItem[] = [
         permission: 'file:manage'
       },
       {
+        icon: 'mdi-robot',
+        text:'ailog.menu',
+        link: { name: "AILogCrudPage" },
+        gallery: true,
+        permission: 'ailog:manage'
+      },
+      {
         icon: 'mdi-lock-check',
         text:'Password Policy',
         link: { name: "PasswordPolicy" },

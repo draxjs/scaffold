@@ -11,6 +11,7 @@ import {MediaPermissions, FilePermissions} from "@drax/media-back";
 import {SettingPermissions} from "@drax/settings-back";
 import {DashboardPermissions} from "@drax/dashboard-back";
 import {AuditPermissions} from "@drax/audit-back";
+import {AILogPermissions, AIPermissions} from "@drax/ai-back";
 
 import {BasePermissions} from "../modules/base/permissions/BasePermissions.js";
 import {NotificationPermissions} from "../modules/base/permissions/NotificationPermissions.js";
@@ -31,6 +32,8 @@ function InitializePermissions() {
         ...Object.values(SettingPermissions),
         ...Object.values(DashboardPermissions),
         ...Object.values(AuditPermissions),
+        ...Object.values(AILogPermissions),
+        ...Object.values(AIPermissions),
 
         //Local modules permissions
         ...Object.values(BasePermissions),

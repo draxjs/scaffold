@@ -3,6 +3,7 @@ import {SettingRoutes} from "@drax/settings-vue";
 import {DashboardCrudRoute} from "@drax/dashboard-vue";
 import {AuditRoutes} from "@drax/audit-vue";
 import {MediaRoutes} from "@drax/media-vue";
+import {AiRoutes} from "@drax/ai-vue";
 
 
 const draxRoutes = [
@@ -10,7 +11,8 @@ const draxRoutes = [
   ...SettingRoutes,
   ...DashboardCrudRoute,
   ...AuditRoutes,
-  ...MediaRoutes
+  ...MediaRoutes,
+  ...AiRoutes
 ]
 
 export default draxRoutes
