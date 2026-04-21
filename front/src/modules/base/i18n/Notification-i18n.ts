@@ -1,7 +1,7 @@
 
 const messages = {
   en: {
-  
+
     notification: {
           entity: 'Notification',
           menu: 'Notification',
@@ -17,6 +17,7 @@ const messages = {
           }
       },
       permission: {
+              'notification': 'Notification',
               'notification:view': 'View Notification',
               'notification:create': 'Create Notification',
               'notification:update': 'Edit Notification',
@@ -40,6 +41,7 @@ const messages = {
           }
       },
      permission: {
+              'notification': 'Notification',
               'notification:view': 'Ver Notification',
               'notification:create': 'Crear Notification',
               'notification:update': 'Editar Notification',
@@ -49,4 +51,4 @@ const messages = {
   }
 }
 
-export default messages;  
+export default messages;
