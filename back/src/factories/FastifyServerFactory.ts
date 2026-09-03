@@ -16,6 +16,7 @@ import {DashboardRoutes} from "@drax/dashboard-back";
 import {AuditRoutes} from "@drax/audit-back";
 import {AIRoutes, AILogRoutes} from "@drax/ai-back";
 import {CrudSavedQueryFastifyRoutes} from "@drax/crud-back";
+import {RecoveryFastifyRoutes} from "@drax/recovery-back";
 //Local modules routes
 import {GoogleFastifyRoutes} from "../modules/google/routes/GoogleRoutes.js"
 import {HealthRoutes} from "../modules/base/routes/HealthRoutes.js"
@@ -47,6 +48,8 @@ function FastifyServerFactory(rootDir:string) {
     server.fastifyRegister(AIRoutes)
     server.fastifyRegister(AILogRoutes)
     server.fastifyRegister(CrudSavedQueryFastifyRoutes)
+
+    server.fastifyRegister(RecoveryFastifyRoutes)
 
     //LOCAL MODULES ROUTES
     server.fastifyRegister(GoogleFastifyRoutes)

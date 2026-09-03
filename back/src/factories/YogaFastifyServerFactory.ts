@@ -17,6 +17,7 @@ import {GoogleFastifyRoutes} from "../modules/google/routes/GoogleRoutes.js"
 import {SettingRoutes} from "@drax/settings-back";
 import {DashboardRoutes} from "@drax/dashboard-back";
 import {AuditRoutes} from "@drax/audit-back";
+import {RecoveryFastifyRoutes} from "@drax/recovery-back";
 import {HealthRoutes} from "../modules/base/routes/HealthRoutes.js"
 
 
@@ -37,6 +38,8 @@ function YogaFastifyServerFactory(rootDir:string) {
     server.fastifyRegister(UserApiKeyRoutes)
     server.fastifyRegister(UserSessionRoutes)
     server.fastifyRegister(UserLoginFailRoutes)
+
+    server.fastifyRegister(RecoveryFastifyRoutes)
 
     server.fastifyRegister(GoogleFastifyRoutes)
 

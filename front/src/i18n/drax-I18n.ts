@@ -6,6 +6,7 @@ import {SettingI18nMessages } from "@drax/settings-front"
 import {MediaI18nMessages } from "@drax/media-front"
 import {AiI18nMessages } from "@drax/ai-front"
 import {CrudI18nMessages } from "@drax/crud-front"
+import {RecoveryI18nMessages } from "@drax/recovery-front"
 
 import merge from 'deepmerge'
 import {LocaleMessages} from "vue-i18n";
@@ -19,7 +20,8 @@ const draxI18n = merge.all([
   SettingI18nMessages,
   MediaI18nMessages,
   AiI18nMessages,
-  CrudI18nMessages
+  CrudI18nMessages,
+  RecoveryI18nMessages
 ]) as LocaleMessages<never>
 
 export default draxI18n
