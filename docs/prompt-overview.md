@@ -6,6 +6,9 @@ Quiero que analices este proyecto completo y generes una documentación funciona
 
 Tu objetivo principal no es describir archivo por archivo ni explicar cada clase, sino entender **qué hace el sistema, cómo está organizado, cuáles son sus módulos funcionales, qué actores intervienen y cómo se relacionan sus principales componentes y entidades**.
 
+## Archivo
+
+Guarda el contenido generado en el archivo docs/project-overview.md
 
 ## Contexto proporcionado por mí
 
