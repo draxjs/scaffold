@@ -23,6 +23,12 @@ module.exports = {
 				DRAX_BASE_URL: 'http://localhost:9090',
 				DRAX_MAX_UPLOAD_SIZE: '5000000',
 				DRAX_FILE_DIR: 'uploads',
+
+				//RECOVERY
+				RECOVERY_ENABLED: 'true',
+				RECOVERY_NAME: '',
+				RECOVERY_MASTER_PASSWORD: '',
+				RECOVERY_MAX_UPLOAD_BYTES: '5368709120'
 			}
 		}
 
