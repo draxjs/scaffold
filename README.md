@@ -82,3 +82,33 @@ git submodule update --remote .agent
 git add .agent
 git commit -m "Update shared AI skills"
 ```
+
+## Actualizar dependencias Drax
+
+El scaffold incluye un script para actualizar dependencias `@drax/*` en:
+
+- `arch/package.json`
+- `back/package.json`
+- `front/package.json`
+
+El script consulta npm para cada dependencia que empieza con `@drax/` y actualiza el `package.json` a la ultima version disponible solo si la version mayor no cambia. Por ejemplo, puede actualizar de `^3.60.0` a `^3.61.2`, pero no de `^3.60.0` a `4.0.0`.
+
+Despues de modificar los `package.json`, ejecuta `npm install` en cada paquete actualizado para regenerar el `package-lock.json`.
+
+Ejecutar:
+
+```bash
+./update-drax-dependencies.mjs
+```
+
+Para revisar que cambios haria sin modificar archivos ni ejecutar `npm install`:
+
+```bash
+./update-drax-dependencies.mjs --dry-run
+```
+
+Para actualizar solo los `package.json` sin correr `npm install`:
+
+```bash
+./update-drax-dependencies.mjs --no-install
+```
