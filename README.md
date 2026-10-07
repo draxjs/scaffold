@@ -36,6 +36,14 @@ git submodule update --init --recursive
 
 ## Sincronizar skills
 
+Para configurar el submodulo en un proyecto viejo que todavia tiene `.agent` como carpeta local:
+
+```bash
+./init-agent-skills.sh
+```
+
+Ese script revisa si `.agent` ya esta configurado como submodulo. Si no lo esta, mueve la carpeta local existente a un backup `.agent.local-backup-<timestamp>` y agrega `https://github.com/draxjs/ai-skills.git` como submodulo en `.agent`.
+
 Para inicializar o sincronizar `.agent` con la ultima version del repositorio compartido:
 
 ```bash
