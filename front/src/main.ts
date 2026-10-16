@@ -9,33 +9,36 @@ import setupSetting from "./setup/SetupSetting";
 import SetupEntities from "./setup/SetupEntities";
 import setupButtons from "./setup/SetupButtons";
 
-//Setup App
-const app = createApp(App)
+async function bootstrap() {
+  //Setup App
+  const app = createApp(App)
 
-//Setup Pinia
-app.use(pinia)
+  //Setup Pinia
+  app.use(pinia)
 
-//Setup Settings
-setupSetting().then(() => {console.log("Setting Setup Done")})
+  //Restore authentication before API requests and the initial navigation.
+  await setupAuth()
 
-//Setup Entities
-SetupEntities()
+  //Setup Settings
+  setupSetting().then(() => {console.log("Setting Setup Done")})
 
-//Setup Custom Buttons
-setupButtons()
+  //Setup Entities
+  SetupEntities()
 
-//Setup Custom Identity Cruds
-//setupCustomIdentity()
+  //Setup Custom Buttons
+  setupButtons()
 
+  //Setup Custom Identity Cruds
+  //setupCustomIdentity()
 
-//Setup Router, I18n and Vuetify
-app
-  .use(vuetify)
-  .use(router)
-  .use(indexI18n)
+  //Setup Router, I18n and Vuetify
+  app
+    .use(vuetify)
+    .use(router)
+    .use(indexI18n)
 
-//Setup Auth
-setupAuth()
+  //Mount App
+  app.mount('#app')
+}
 
-//Mount App
-app.mount('#app')
+void bootstrap()
