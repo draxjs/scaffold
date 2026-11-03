@@ -14,7 +14,7 @@ import {MediaRoutes, FileRoutes} from "@drax/media-back"
 import {SettingRoutes} from "@drax/settings-back"
 import {DashboardRoutes} from "@drax/dashboard-back";
 import {AuditRoutes} from "@drax/audit-back";
-import {AIRoutes, AILogRoutes} from "@drax/ai-back";
+import {AIRoutes, AILogRoutes, AgentSessionRoutes, DraxAgentRoutes} from "@drax/ai-back";
 import {CrudSavedQueryFastifyRoutes} from "@drax/crud-back";
 import {RecoveryFastifyRoutes} from "@drax/recovery-back";
 //Local modules routes
@@ -47,6 +47,8 @@ function FastifyServerFactory(rootDir:string) {
     server.fastifyRegister(DashboardRoutes)
     server.fastifyRegister(AIRoutes)
     server.fastifyRegister(AILogRoutes)
+    server.fastifyRegister(DraxAgentRoutes)
+    server.fastifyRegister(AgentSessionRoutes)
     server.fastifyRegister(CrudSavedQueryFastifyRoutes)
 
     server.fastifyRegister(RecoveryFastifyRoutes)

@@ -9,6 +9,7 @@ import AnimatedBackground from "../components/AnimatedBackground/AnimatedBackgro
 import {useRouter} from "vue-router";
 import { useDarkMode } from '../composables/useDarkMode.js'
 import NotificationButton from "../modules/base/components/NotificationButton.vue"
+import { DraxAgentButton} from "@drax/ai-vue";
 
 const {loadDarkMode} = useDarkMode()
 
@@ -46,6 +47,7 @@ const appName = computed(() => {
       <v-spacer></v-spacer>
       <slot name="toolbar-right"></slot>
       <dark-mode></dark-mode>
+      <drax-agent-button></drax-agent-button>
       <notification-button class="mr-2"></notification-button>
       <identity-profile-avatar class="cursor-pointer" @click="profileDrawer = !profileDrawer"></identity-profile-avatar>
     </v-app-bar>

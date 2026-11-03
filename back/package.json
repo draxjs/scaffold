@@ -28,7 +28,7 @@
     "@drax/settings-back": "^3.69.0",
     "@drax/dashboard-back": "^3.69.0",
     "@drax/audit-back": "^3.69.0",
-    "@drax/ai-back": "^3.70.0",
+    "@drax/ai-back": "^3.70.1",
     "@drax/recovery-back": "^3.69.0",
     "@graphql-tools/load-files": "^7.0.0",
     "@graphql-tools/merge": "^9.0.0",
